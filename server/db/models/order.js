@@ -17,7 +17,7 @@ const Order = db.define('order', {
   subTotal: {
     type: Sequelize.VIRTUAL,
     get: function() {
-      if (this.items.length) {
+      if (this.items && this.items.length) {
         return this.items.map(item => item.quantity * item.price);
       } else {
         return 0;
@@ -27,8 +27,8 @@ const Order = db.define('order', {
   total: {
     type: Sequelize.VIRTUAL,
     get: function() {
-      if (subTotal) {
-        return subTotal * 1.08875;
+      if (this.subTotal) {
+        return this.subTotal * 1.08875;
       } else {
         return 0;
       }
@@ -36,6 +36,12 @@ const Order = db.define('order', {
   },
   recipientName: {
     type: Sequelize.STRING
+  },
+  recipientEmail: {
+    type: Sequelize.STRING,
+    validate:{
+        isEmail : true
+    }
   },
   recipientAddress: {
     type: Sequelize.STRING
@@ -56,27 +62,34 @@ Order.countByCategoryId = function (id) {
   });
 };
 
-Order.afterCreate( (instance, options) => {
-  const items = instance.items;
-  //pseudocode
-  //1. convert json to obj
-  //2. get the product id
-  //3. look up categories for that product
-  //4. for each category, inc the rank counter
-  items.forEach (item => {
-    const obj = JSON.parse(item);
-    const prodId = obj.productId;
-    const prod = Product.findById(prodId)
-    .then (product => {
-      //assume an array
-      product.getCategories().forEach(category => {
-        //Might have to do promise.all
-        category.incrementRank();
-      });
-    });
+// Order.afterCreate( (instance, options) => {
+//   console.log("Order.afterCreate");
+//   const items = instance.items;
+//   //pseudocode
+//   //1. convert json to obj
+//   //2. get the product id
+//   //3. look up categories for that product
+//   //4. for each category, inc the rank counter
+//   items.forEach (item => {
+//     const prodId = item.productId;
+//     console.log("one", prodId);
+//     const prod = Product.findById(prodId)
+//     .then (product => {
+//       //assume an array
+//       console.log("2", product);
+//       product.getCategories()
+//       .then ( categories => {
+//         console.log("got categories", categories);
+//         categories.forEach(category => {
+//         //Might have to do promise.all
+//         console.log("order.js, about to increment rank");
+//           category.incrementRank();
+//         });
+//       });
+//     });
 
-  });
-});
+//   });
+// });
 
 module.exports = Order;
 
