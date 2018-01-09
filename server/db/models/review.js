@@ -5,6 +5,7 @@ const Review = db.define('review', {
   reviewText : {
     type: Sequelize.TEXT,
     allowNull: false,
+
     // validate: {
     //   len: {
     //     min: {
