@@ -32,7 +32,7 @@ const Product = db.define ('product', {
         defaultValue: '/snowflake.png'
     },
     size: {
-        type: Sequelize.ENUM(1, 5, 10, 20),
+        type: Sequelize.ENUM('1', '5', '10', '20'),
         get() {
             return `${this.size$}lb`;
         }
@@ -50,3 +50,5 @@ Product.countByCategoryId = function (id) {
         }
     });
 };
+
+module.exports = Product;

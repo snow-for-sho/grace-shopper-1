@@ -5,17 +5,18 @@ const Review = db.define('review', {
   reviewText : {
     type: Sequelize.TEXT,
     allowNull: false,
-    validate: {
-      len: {
-        min: {
-          args: [140],
-          msg: 'Review must be at least 140 characters.'
-        }
-      }
-    }
+
+    // validate: {
+    //   len: {
+    //     min: {
+    //       args: [140, 1000000],
+    //       msg: 'Review must be at least 140 characters.'
+    //     }
+    //   }
+    // }
   },
   numberOfStars: {
-    type: Sequelize.INTERGER,
+    type: Sequelize.INTEGER,
     validate: {
       min: 0,
       max: 5
@@ -28,10 +29,10 @@ const Review = db.define('review', {
   headline: {
     type: Sequelize.VIRTUAL,
     get() {
-      return this.reviewText.subString(0, 140);
+      return this.reviewText?this.reviewText.substring(0, 140):'';
     }
   },
-  orderId: Sequelize.INTERGER
+  orderId: Sequelize.INTEGER
 });
 
 module.exports = Review;

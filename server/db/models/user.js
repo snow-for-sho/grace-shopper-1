@@ -12,6 +12,7 @@ const User = db.define('user', {
     allowNull: false
   },
   cart: {
+    //{id:qty}
     type: Sequelize.ARRAY(Sequelize.JSON)
   },
   isAdmin: {
@@ -21,7 +22,10 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate:{
+        isEmail : true
+    }
   },
   password: {
     type: Sequelize.STRING

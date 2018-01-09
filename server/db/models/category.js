@@ -7,16 +7,13 @@ const Category = db.define ('category', {
     title: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    tags: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: false
-    },
-    rank: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0
     }
+    // },
+    // rank: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     defaultValue: 0
+    // }
 });
 
 Category.getPopularity = function (id) {
@@ -24,6 +21,9 @@ Category.getPopularity = function (id) {
 }
 
 //pseudocode
-Category.prototype.incrementRank = function () {
-    this.setDataValue('rank', this.getDataValue()+1);
-}
+// Category.prototype.incrementRank = function () {
+//     console.log('category rank', this.getDataValue());
+//     this.setDataValue('rank', this.getDataValue()+1);
+// }
+
+module.exports = Category;
