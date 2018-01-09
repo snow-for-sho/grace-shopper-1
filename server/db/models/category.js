@@ -22,3 +22,8 @@ const Category = db.define ('category', {
 Category.getPopularity = function (id) {
     return Product.countByCategoryId(id);
 }
+
+//pseudocode
+Category.prototype.incrementRank = function () {
+    this.setDataValue('rank', this.getDataValue()+1);
+}

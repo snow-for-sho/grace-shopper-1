@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const Product = require('./product');
+const Category = require ('./category');
 
 const Order = db.define('order', {
   items: {
@@ -54,6 +55,28 @@ Order.countByCategoryId = function (id) {
       }
   });
 };
+
+Order.afterCreate( (instance, options) => {
+  const items = instance.items;
+  //pseudocode
+  //1. convert json to obj
+  //2. get the product id
+  //3. look up categories for that product
+  //4. for each category, inc the rank counter
+  items.forEach (item => {
+    const obj = JSON.parse(item);
+    const prodId = obj.productId;
+    const prod = Product.findById(prodId)
+    .then (product => {
+      //assume an array
+      product.getCategories().forEach(category => {
+        //Might have to do promise.all
+        category.incrementRank();
+      });
+    });
+
+  });
+});
 
 module.exports = Order;
 
