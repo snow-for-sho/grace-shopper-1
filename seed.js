@@ -10,13 +10,13 @@ const Review = require("./server/db/models/review");
  Product.belongsToMany(Category, {through: 'CategoryProduct'});
  //will add getProducts/setProducts/addProducts/addProduct to Category
  Category.belongsToMany (Product, {through: 'CategoryProduct'});
- 
- 
+
+
  //adds userId, getUser, setUer to Order
- Order.belongsTo(User);  
+ Order.belongsTo(User);
  //adds userId to Order, getOrders/setOrders to User
  User.hasMany(Order);
- 
+
  //Review gets UserId, and get/set User methods
  Review.belongsTo(User);
  //One to many, User gets getReviews and setReviews, reviews gets userId
@@ -52,7 +52,7 @@ const users = [
         lastName: 'Person',
         email: 'someperson@gmai.com'
     }
-    
+
 ];
 
 const categories = [
@@ -233,7 +233,7 @@ const seed = () => {
     )
     .catch(errFunc) ;
 }
- 
+
 const errFunc = (err) =>  {
     console.log('Error while seeding');
     console.log(err.stack);
@@ -252,6 +252,5 @@ const main = () => {
         return null;
       });
   };
-  
+
   main();
-  
