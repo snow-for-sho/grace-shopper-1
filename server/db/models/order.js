@@ -4,11 +4,18 @@ const Product = require('./product');
 const Category = require ('./category');
 
 const Order = db.define('order', {
+  // JM - as a separate table?
+  // LineItem model
+  // 
+  // Order.hasMany(LineItem)
+  // LineItem.belongsTo(Order)
+
   items: {
     // order structure: {productId: id, quantity: X, price: X}
     type: Sequelize.ARRAY(Sequelize.JSON),
     allowNull: false
   },
+  // JM - *consider* another possibility - 'IN_CART'
   status: {
     type: Sequelize.ENUM('CREATED', 'PROCESSING', 'SHIPPED', 'COMPLETED'),
     defaultValue: 'CREATED',

@@ -21,6 +21,7 @@ router.get('/:id', (req, res, next) => {
   .catch(next)
 })
 
+// JM - if you want to search by fields use querystring
 // see a specific product, found by title
 router.get('/:title', (req, res, next) => {
   const title = req.params.title;
@@ -41,6 +42,7 @@ router.post('/', function (req, res, next) {
     .catch(next);
 });
 
+// JM - as long as you are aware of this issue! :id and :title
 // Update a product by ID
 router.put('/:id', function (req, res, next) {
   const id = req.params.id;

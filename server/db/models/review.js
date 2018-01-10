@@ -32,6 +32,7 @@ const Review = db.define('review', {
       return this.reviewText?this.reviewText.substring(0, 140):'';
     }
   },
+  // JM - this is just an association
   orderId: Sequelize.INTEGER
 });
 

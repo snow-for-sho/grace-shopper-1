@@ -3,6 +3,7 @@ const db = require('../db');
 
 const Product = db.define ('product', {
     title: {
+        // JM - always consider both notEmpty and allowNull
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -10,6 +11,7 @@ const Product = db.define ('product', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    // JM - use integers!
     price: {
         type: Sequelize.DOUBLE,
         allowNull: false,
@@ -34,6 +36,7 @@ const Product = db.define ('product', {
     size: {
         type: Sequelize.ENUM('1', '5', '10', '20'),
         get() {
+            // JM - typo?
             return `${this.size$}lb`;
         }
     },

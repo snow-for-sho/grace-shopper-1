@@ -11,6 +11,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  // JM - do we need this?
   cart: {
     //{id:qty}
     type: Sequelize.ARRAY(Sequelize.JSON)
