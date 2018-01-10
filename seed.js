@@ -5,24 +5,7 @@ const Order = require("./server/db/models/order");
 const Product = require("./server/db/models/product");
 const User = require("./server/db/models/user");
 const Review = require("./server/db/models/review");
-
- //will add getCategories/setCategories/addCategories/addCategory to Product
- Product.belongsToMany(Category, {through: 'CategoryProduct'});
- //will add getProducts/setProducts/addProducts/addProduct to Category
- Category.belongsToMany (Product, {through: 'CategoryProduct'});
-
-
- //adds userId, getUser, setUer to Order
- Order.belongsTo(User);
- //adds userId to Order, getOrders/setOrders to User
- User.hasMany(Order);
-
- //Review gets UserId, and get/set User methods
- Review.belongsTo(User);
- //One to many, User gets getReviews and setReviews, reviews gets userId
- User.hasMany(Review);
- //adds productId to Review, and set/get Reviews to Product
- Product.hasMany(Review);
+const LineItem = require ('./server/db/models/lineitem');
 
 const users = [
     {
@@ -70,7 +53,7 @@ const products = [
     {
         title: 'Snow',
         description: 'The purest and the best snow possible',
-        price: 10,
+        price: 1000,
         inventoryQty: 30,
         size: '10',
         origin: 'New York'
@@ -78,7 +61,7 @@ const products = [
     {
         title: 'Snow',
         description: 'The purest and the best snow possible',
-        price: 10,
+        price: 1000,
         inventoryQty: 30,
         size: '1',
         origin: 'New York'
@@ -86,7 +69,7 @@ const products = [
     {
         title: 'Snow',
         description: 'The purest and the best snow possible',
-        price: 10,
+        price: 1000,
         inventoryQty: 30,
         size: '5',
         origin: 'New York'
@@ -94,7 +77,7 @@ const products = [
     {
         title: 'Snow',
         description: 'The purest and the best snow possible',
-        price: 10,
+        price: 1000,
         inventoryQty: 30,
         size: '20',
         origin: 'Oregon'
@@ -102,14 +85,14 @@ const products = [
     {
         title: 'Snowball launcher',
         description: 'Be the boss of the next snowball fight',
-        price: 125,
+        price: 12500,
         inventoryQty: 5,
         origin: 'New York'
     },
     {
         title: 'Pre-made snowman',
         description: 'Too cold to build a snowman?  We got you covered!',
-        price: 50,
+        price: 5000,
         inventoryQty: 7,
         size: '20',
         origin: 'Oregon'
@@ -117,7 +100,7 @@ const products = [
     {
         title: 'Pre-made snowman',
         description: 'Too cold to build a snowman?  We got you covered!',
-        price: 50,
+        price: 5000,
         inventoryQty: 7,
         size: '5',
         origin: 'New Jersey',
@@ -126,14 +109,14 @@ const products = [
     {
         title: 'Snow molds',
         description: 'Perfect shapes for your next snow fort',
-        price: 5,
+        price: 500,
         photo: '/molds.jpg',
         origin: 'New York'
     },
     {
         title: 'Night King Ice Spear',
         description: 'Security system frozen?  Do not worry, the ice spear will deter all potential burglars',
-        price: 100000,
+        price: 10000000,
         inventoryQty: 1,
         photo: '/iceSpear.png',
         origin: 'New York'
@@ -141,29 +124,54 @@ const products = [
     {
         title: 'Jon Snow',
         description: 'Security system frozen?  Do not worry, the ice spear will deter all potential burglars',
-        price: 1000000,
+        price: 100000000,
         inventoryQty: 1,
         photo: '/jonSnow.png',
         origin: 'New York'
     }
 ];
 
+const lineItems = [
+    {
+        quantity: 5,
+        price: 100
+    },
+    {
+        quantity: 7,
+        price: 10
+    },
+    {
+        quantity: 2
+    },
+    {
+        quantity: 6
+    },
+    {
+        quantity: 1
+    }
+
+];
+
 const orders = [
     {
-        items: [{productId: 1, quantity: 3, price: 20},
-                {productId: 3, quantity: 1, price: 10}],
         status: 'PROCESSING',
         recipientName: 'Karen McPherson',
         recipientEmail: 'KMP@gmai.com',
         recipientAddress: '5 Hanover Sq, New York, NY'
     },
     {
-        items: [{productId: 10, quantity: 1, price: 1000000}],
         status: 'SHIPPED',
         recipientName: 'Karen McPherson',
         recipientEmail: 'KMP@gmai.com',
         recipientAddress: '5 Hanover Sq, New York, NY'
+    },
+    {
+        status: 'IN_CART',
+        recipientName: 'Karen McPherson',
+        recipientEmail: 'KMP@gmai.com',
+        recipientAddress: '5 Hanover Sq, New York, NY'
     }
+
 ];
 
 const reviews = [
@@ -186,50 +194,67 @@ const seed = () => {
     const productsPromise = products.map(product => Product.create(product));
     const ordersPromise = orders.map(order => Order.create(order));
     const reviewsPromise = reviews.map(review => Review.create(review));
+    const lineItemsPromise = lineItems.map(lineItem => LineItem.create(lineItem));
 
     return Promise.all (usersPromise)
     .then( (userData) => Promise.all(categoriesPromise)
         .then( (catData) => Promise.all(productsPromise)
             .then( (prodData) => Promise.all(ordersPromise)
                 .then( (orderData) => Promise.all(reviewsPromise)
-                    .then( (reviewData) => {
-                        //console.log(catData[0]);
-                        return Promise.all([catData[0].setProducts([prodData[0], prodData[1]]),
-                        catData[1].setProducts([prodData[2], prodData[3]]),
-                        catData[2].setProducts([prodData[5],prodData[9],prodData[6]]),
-                        catData[3].addProduct(prodData[4]),
-                        catData[4].setProducts([prodData[8],prodData[7]]),
+                    .then( (reviewData) => Promise.all (lineItemsPromise)
+                        .then (lineItemData => {
+                            //1.  Add Products to categories
+                            return Promise.all([catData[0].setProducts([prodData[0], prodData[1]]),
+                            catData[1].setProducts([prodData[2], prodData[3]]),
+                            catData[2].setProducts([prodData[5],prodData[9],prodData[6]]),
+                            catData[3].addProduct(prodData[4]),
+                            catData[4].setProducts([prodData[8],prodData[7]]),
 
-                        // prodData[0].addCategory(catData[0]),
-                        // prodData[1].addCategory(catData[0]),
-                        // prodData[2].addCategory(catData[1]),
-                        // prodData[3].addCategory(catData[1]),
-                        // prodData[4].addCategory(catData[2]),
-                        // prodData[5].addCategory(catData[2]),
-                        // prodData[6].addCategory(catData[2]),
-                        // prodData[7].addCategory(catData[3]),
-                        // prodData[8].addCategory(catData[4]),
-                        // prodData[9].addCategory(catData[4]),
+                            //     //2.  Set user for Order Id
+                            // orderData[0].setUser(userData[0]),
+                            // orderData[1].setUser(userData[1]),
+                            
+                            //Add orders to User
+                            userData[0].addOrder(orderData[0]),
+                            userData[1].addOrder(orderData[1]),
+                            userData[3].addOrder(orderData[2]), //in cart order
 
-                        //do we need to call the reverse?
+                            //Add users to review
+                            reviewData[0].setUser(userData[0]),
+                            reviewData[1].setUser(userData[0]),
+                            reviewData[2].setUser(userData[1]),
 
-                        orderData[0].setUser(userData[0]),
-                        orderData[1].setUser(userData[1]),
+                            //Add orders to review
+                            reviewData[2].setOrder(orderData[1]), 
 
-                        userData[0].addOrder(orderData[0]),
-                        userData[1].addOrder(orderData[1]),
+                            prodData[0].setReviews([reviewData[0], reviewData[1]]),
+                            prodData[1].setReviews(reviewData[2]),
 
-                        reviewData[0].setUser(userData[0]),
-                        reviewData[1].setUser(userData[0]),
-                        reviewData[2].setUser(userData[1]),
+                            userData[0].setReviews([reviewData[0], reviewData[1]]),
+                            userData[1].setReviews([reviewData[2]]),
 
-                        prodData[0].setReviews([reviewData[0], reviewData[1]]),
-                        prodData[1].setReviews(reviewData[2]),
+                            //LineItems
+                            lineItemData[0].setProduct(prodData[1]),
+                            lineItemData[1].setProduct(prodData[9]),
+                            lineItemData[2].setProduct(prodData[2]),
+                            lineItemData[3].setProduct(prodData[8]),
+                            lineItemData[4].setProduct(prodData[8]),
 
-                        userData[0].setReviews([reviewData[0], reviewData[1]]),
-                        userData[1].setReviews([reviewData[2]])
-                    ]).catch(errFunc);
-                    })
+                            orderData[0].addLineItem(lineItemData[0]),
+                            orderData[1].addLineItems([lineItemData[1], lineItemData[4]]),
+                            orderData[2].addLineItems([lineItemData[2], lineItemData[3]])//,
+
+                            // lineItemData[0].addOrder(orderData[1]),
+                            // lineItemData[1].addOrder(orderData[0]),
+                            // lineItemData[2].addOrder(orderData[2]),
+                            // lineItemData[3].addOrder(orderData[2]),
+                            // lineItemData[4].addOrder(orderData[1]),
+
+                        
+
+                            ]).catch(errFunc);
+                        })
+                    )
                 )
             )
         )

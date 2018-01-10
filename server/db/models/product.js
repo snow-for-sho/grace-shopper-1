@@ -4,18 +4,20 @@ const db = require('../db');
 const Product = db.define ('product', {
     title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        notEmpty: true
     },
     description: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
+        notEmpty: true
     },
     price: {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0.0,
+        defaultValue: 0,
         validate: {
-            min: 0.0
+            min: 0
         }
     },
     inventoryQty: {
@@ -34,7 +36,7 @@ const Product = db.define ('product', {
     size: {
         type: Sequelize.ENUM('1', '5', '10', '20'),
         get() {
-            return `${this.size$}lb`;
+            return `${this.size}lb`;
         }
     },
     origin: {

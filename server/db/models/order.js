@@ -4,13 +4,8 @@ const Product = require('./product');
 const Category = require ('./category');
 
 const Order = db.define('order', {
-  items: {
-    // order structure: {productId: id, quantity: X, price: X}
-    type: Sequelize.ARRAY(Sequelize.JSON),
-    allowNull: false
-  },
   status: {
-    type: Sequelize.ENUM('CREATED', 'PROCESSING', 'SHIPPED', 'COMPLETED'),
+    type: Sequelize.ENUM('IN_CART','CREATED', 'PROCESSING', 'SHIPPED', 'COMPLETED'),
     defaultValue: 'CREATED',
     allowNull: false
   },
