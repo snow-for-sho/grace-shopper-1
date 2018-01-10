@@ -38,4 +38,4 @@ router.put('/:id', function (req, res, next) {
   Order.findById(id)
     .then(order => order.update(req.body))
     .catch(next);
-});
+})
