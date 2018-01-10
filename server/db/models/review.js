@@ -5,15 +5,8 @@ const Review = db.define('review', {
   reviewText : {
     type: Sequelize.TEXT,
     allowNull: false,
-    notEmpty: true
-    // validate: {
-    //   len: {
-    //     min: {
-    //       args: [140, 1000000],
-    //       msg: 'Review must be at least 140 characters.'
-    //     }
-    //   }
-    // }
+    notEmpty: true,
+    len: [140, 100000000]
   },
   numberOfStars: {
     type: Sequelize.INTEGER,
