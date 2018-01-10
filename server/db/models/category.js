@@ -6,7 +6,8 @@ const db = require('../db');
 const Category = db.define ('category', {
     title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        notEmpty: true
     }
     // },
     // rank: {

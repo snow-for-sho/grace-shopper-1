@@ -11,10 +11,6 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     //allowNull: false
   },
-  cart: {
-    //{id:qty}
-    type: Sequelize.ARRAY(Sequelize.JSON)
-  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
