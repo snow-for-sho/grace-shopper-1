@@ -41,6 +41,7 @@ Product.hasMany(Review);
 //puts productId on LineItem and adds set/get Product to LineItem
 LineItem.belongsTo(Product);
 //puts orderId on lineItem and adds set/get Order to LineItem
+//Used to get the price dynamically from Product table if order status is IN_CART
 LineItem.belongsTo(Order);
 //creates a pivot table and puts get/set/add LineItems to Order, and also addLineItem to Order
 Order.belongsToMany(LineItem, {through: 'LineItemOrder'});
