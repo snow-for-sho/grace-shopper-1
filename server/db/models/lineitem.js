@@ -17,9 +17,8 @@ const LineItem = db.define ('lineItem', {
             min: 0
         },
         get () {
-            return this.price ? this.price : 
-            Product.findById (this.getProductId())
-            .then(product => product.price);
+            return this.getOrder().status !== 'IN_CART' && price ? this.price : 
+            this.getProduct().price;
         }
     }
 });
