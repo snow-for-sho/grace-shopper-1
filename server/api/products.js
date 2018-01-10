@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 // see a specific product, found by title
-router.get('/:title', (req, res, next) => {
+router.get('/titles/:title', (req, res, next) => {
   const title = req.params.title;
 
   Product.findOne({
