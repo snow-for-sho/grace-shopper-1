@@ -5,7 +5,7 @@ const Review = db.define('review', {
   reviewText : {
     type: Sequelize.TEXT,
     allowNull: false,
-
+    notEmpty: true
     // validate: {
     //   len: {
     //     min: {
@@ -31,8 +31,7 @@ const Review = db.define('review', {
     get() {
       return this.reviewText?this.reviewText.substring(0, 140):'';
     }
-  },
-  orderId: Sequelize.INTEGER
+  }
 });
 
 module.exports = Review;
