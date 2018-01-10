@@ -5,11 +5,11 @@ const db = require('../db')
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false
+    //allowNull: false
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false
+    //allowNull: false
   },
   cart: {
     //{id:qty}
@@ -34,6 +34,9 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   googleId: {
+    type: Sequelize.STRING
+  },
+  facebookId: {
     type: Sequelize.STRING
   }
 })

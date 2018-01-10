@@ -26,31 +26,34 @@ const Review = require("./server/db/models/review");
 
 const users = [
     {
-        firstName: 'Elana',
-        lastName: 'Abelev',
-        email: 'elanamig@gmail.com',
-        cart:[{1:5}]
+        firstName: 'Snow',
+        lastName: 'Lover',
+        email: 'a@gmail.com',
+        cart:[{1:5}],
+        password: '123456',
+        salt: 'fullstack'
     },
+
     {
-        firstName: 'Will',
-        lastName: 'Shaw',
-        email: 'wrcs505@gmail.com',
+        firstName: 'Person',
+        lastName: 'SnowPerson',
+        email: 'w@gmail.com',
         cart:[{3:1}, {2:1}, {10:1}]
     },
     {
-        firstName: 'Aubrey',
-        lastName: 'Arcangel',
-        email: 'aarcangel@gmail.com'
+        firstName: 'Abcde',
+        lastName: 'Fghijk',
+        email: 'aa@gmail.com'
     },
     {
         firstName: 'John',
-        lastName: 'McDonald',
-        email: 'jmd@gmai.com'
+        lastName: 'Smith',
+        email: 'js@js.com'
     },
     {
         firstName: 'Some',
         lastName: 'Person',
-        email: 'someperson@gmai.com'
+        email: 'someperson@js.com'
     }
     
 ];

@@ -38,8 +38,12 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     User.find({where: {googleId}})
       .then(foundUser => (foundUser
         ? done(null, foundUser)
-        : User.create({name, email, googleId})
-          .then(createdUser => done(null, createdUser))
+        : User.find({where: {email}})
+           .then (newFoundUser => (newFoundUser? 
+              newFoundUser.update({googleId: googleId}) :
+            User.create({name, email, googleId}))
+            .then(createdUser => done(null, createdUser))
+           )
       ))
       .catch(done)
   })
