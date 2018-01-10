@@ -1,0 +1,6 @@
+process.env.GOOGLE_CLIENT_ID = '835676761706-a06lm1tfahaqpe71415f9a9h78kbbjbs.apps.googleusercontent.com'
+process.env.GOOGLE_CLIENT_SECRET = 'zK-xLzCBtWzhF8wrZ8HMrlyc'
+process.env.GOOGLE_CALLBACK = '/auth/google/callback'
+process.env.FB_APP_ID='192786971463496'
+process.env.FB_APP_SECRET='409984edfc045a4e7ffbfa2810c5780e'
+process.env.FB_CALLBACK = '/auth/facebook/callback'

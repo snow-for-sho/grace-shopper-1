@@ -17,6 +17,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
+  console.log("signup", req.body);
   User.create(req.body)
     .then(user => {
       req.login(user, err => (err ? next(err) : res.json(user)))
@@ -40,3 +41,4 @@ router.get('/me', (req, res) => {
 })
 
 router.use('/google', require('./google'))
+router.use('/facebook', require('./facebook'))
