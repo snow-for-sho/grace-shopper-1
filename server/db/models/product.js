@@ -42,6 +42,11 @@ const Product = db.define ('product', {
     origin: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    available: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
     }
 });
 
