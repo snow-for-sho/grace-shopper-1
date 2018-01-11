@@ -17,10 +17,14 @@ const LineItem = db.define ('lineItem', {
             min: 0
         },
         get () {
-            return this.getOrder().status !== 'IN_CART' && price ? this.price : 
+            return this.getOrder().status !== 'IN_CART' && this.getDataValue('price') ? this.getDataValue('price') :
             this.getProduct().price;
         }
     }
+    }, {
+  defaultScope: {
+    include: Product
+  }
 });
 
 module.exports = LineItem;
