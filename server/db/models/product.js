@@ -36,7 +36,7 @@ const Product = db.define ('product', {
     size: {
         type: Sequelize.ENUM('1', '5', '10', '20'),
         get() {
-            return `${this.size}lb`;
+            return this.getDataValue('size') + 'lb';
         }
     },
     origin: {
