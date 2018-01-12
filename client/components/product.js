@@ -1,29 +1,31 @@
 import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
+import {connect} from 'react-redux';
+import {addToCart} from '../store';
 //import Review from './review'
-
-export default function Product (props) {
-
-  const product = props.product || [];
-
+function Product (props) {
+  console.log("product props",props)
+  const id = props.id || props.match.params.id
+  const singleProduct = props.match.params.id != undefined;
+  const product = props.products[id];
+  if (!product || product.inventoryQty === 0) return null;
   return (
+    <form onSubmit={props.addToCart}>
     <li>
       <div>
       {
         // Shows image to display for grid link
       }
-        <a href="#"  className="product-item" >
-          <img src={product.photo} alt="image" />
-        </a>
-      </div>
-      <div>
-        <NavLink to={`/product/${product.id}`}>
+        <input type='hidden' name='id' value={product.id} />
+        <NavLink to={`/products/${product.id}`}>
+          <img src={product.photo} alt="image" width="100" height="100"/>
           <h2>{ product.title }</h2>
         </NavLink>
         <h4>Description: { product.description }</h4>
-        <h4>Price: { product.price }</h4>
-        <h4>Inventory Remaining: { product.inventoryQty }</h4>
+        <h4>Price: { product.price/100 }</h4>
+        {singleProduct?getSelect ("qty", product.inventoryQty):
+        <h4>Inventory Remaining: { product.inventoryQty }</h4>}
         <div>
           <label htmlFor="size">Product Size</label>
           { // react-redux-forms scaffolding for choosing a size
@@ -56,9 +58,63 @@ export default function Product (props) {
         // how to get access to the reviews for a given product?
         // product.review
       }
-    { //  <Review product={product} /> 
+    { 
+      singleProduct ?
+          <button type='submit' >Add To Cart </button>
+          : <span/>
+      //  <Review product={product} /> 
+     
   }
     </li>
-
+</form>
   );
 }
+
+const getSelect = (name, max) => {
+  const arr = [];
+  for (let i = 1; i<max; i++) {
+    arr.push(<option value={i} key={i}>{i}</option>)
+  }
+  // return (
+  //   <Field name={name} component="select" >
+  //     {arr}
+  //   </Field>
+  // );
+  return (
+    <select name={name}>
+      {arr}
+    </select>
+  );
+}
+
+const mapState = state=> {
+  return {
+    products: state.products,
+    isAdmin: state.user.isAdmin
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addLineItem: (lineItem) => {
+      dispatch(addToCart(lineItem))
+    }
+  }
+}
+
+const merge = (state, actions, ownProps) => {
+  return {
+    ...state,
+    ...actions,
+    ...ownProps,
+    addToCart: (e) => {
+      e.preventDefault();
+      const prodId = +e.target.id.value;
+      const prods = state.products
+      const lineItem = {quantity: e.target.qty.value, product: prods[prodId]}
+      actions.addLineItem(lineItem)
+    }
+  }
+}
+
+export default withRouter (connect(mapState, mapDispatch, merge)(Product));

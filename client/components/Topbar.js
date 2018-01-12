@@ -4,7 +4,6 @@ import {logout} from '../store';
 import {connect} from 'react-redux';
 
 const Topbar = props => {
-    console.log('topbar',props);
     return (
          <div className='topbar'>
              <nav>
@@ -22,7 +21,7 @@ const Topbar = props => {
                 </div>
             </div>
             <nav>
-                <Link to="/cart">Cart</Link>
+                <Link to="/cart">Cart ({props.cartSize})</Link>
                 {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/auth/login">Login</Link>}
                 {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/auth/signup">Signup</Link>}
             </nav>
@@ -32,11 +31,22 @@ const Topbar = props => {
 }
 
 const mapState = (state) => ({
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cartSize: getCartSize(state.cart)
 })
 
 const mapDispatch = (dispatch) => ({
     handleLogout: ()=>dispatch(logout())
 });
+
+const getCartSize = cart => {
+    let total = 0;
+    console.log("get cart size", cart);
+    Object.keys(cart).forEach (key => {
+        console.log("qty for each",cart[key], cart[key].quantity)
+        total += +(cart[key].quantity);
+    });
+    return total;
+}
 
 export default connect (mapState, mapDispatch) (Topbar);
