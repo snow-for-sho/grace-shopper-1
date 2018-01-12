@@ -1,4 +1,4 @@
-import axios from 'axois';
+import axios from 'axios';
 
 // Action Types
 const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -21,4 +21,10 @@ export const fetchProducts = () => dispatch =>
     .catch(err => console.error(err));
 
 // REDUCER
-
+export default function (state = [], action) {
+  switch (action.type) {
+    case GET_PRODUCTS:
+      return action.products
+    default: return state;
+  }
+}

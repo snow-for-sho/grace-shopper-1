@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
       // explicitly select only certain fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['title', 'description', 'price', 'inventoryQty', 'photo', 'size']
+      attributes: ['title', 'description', 'price', 'inventoryQty', 'photo', 'size', 'id']
     })
     .then(products => res.json(products))
     .catch(next)
