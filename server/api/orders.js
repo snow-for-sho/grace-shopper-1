@@ -1,20 +1,29 @@
 'use strict';
-
-
 const router = require('express').Router();
-const { Order } = require('../db/models');
+const { Order, LineItem } = require('../db/models');
 
 module.exports = router;
 
 // see all orders
 router.get('/', (req, res, next) => {
-  Order.findAll({
-    attributes: ['items', 'status', 'subTotal', 'total', 'recipientName', 
-    'recipientEmail', 'recipientAddress', 'recipientPhone', 
-    'recipientInstructions']
-  })
-  .then(orders => res.json(orders))
-  .catch(next);
+  const carted = req.query.status;
+  console.log('carted: ', carted)
+  if (carted === 'IN_CART') {
+    return Order.findOne({
+      where: {status: 'IN_CART'},
+      include: [{all: true, nested: true}]
+    })
+    .then(order => res.json(order))
+    .catch(next)
+  } else {
+    return Order.findAll({
+      attributes: ['status', 'subTotal', 'total', 'recipientName',
+      'recipientEmail', 'recipientAddress', 'recipientPhone',
+      'recipientInstructions']
+    })
+    .then(orders => res.json(orders))
+    .catch(next);
+  }
 });
 
 // see a specific order, found by ID

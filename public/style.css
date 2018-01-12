@@ -12,7 +12,7 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: .4em;
 }
 
 form div {
@@ -20,6 +20,18 @@ form div {
   display: inline-block;
 }
 
+
+.search {
+  color:red
+}
+
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: lightgrey;
+  padding-bottom: 1em;
+}
 .product-item {
   width:  300px;
   height: 300px;

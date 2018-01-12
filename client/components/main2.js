@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {withRouter, Link, Switch, Route, Redirect} from 'react-router-dom';
-import {logout} from '../store';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {withRouter, Link} from 'react-router-dom'
+import {logout} from '../store'
 import Topbar from './Topbar';
-import Order from './Order';
-import LoginSignup from './LoginSignup';
 
 /**
  * COMPONENT
@@ -15,18 +13,27 @@ import LoginSignup from './LoginSignup';
  */
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
- console.log("main - logged in", isLoggedIn)
+
   return (
     <div>
-      <Topbar/>
-      <main>
-        <Switch>
-            <Route exact path="/" />
-            <Route exact path="/cart" render={(props) => <Order type="IN_CART" {...props}/>} />     
-            <Route path="/auth" render={(props) => <LoginSignup action='Login'/>} />       
-            <Redirect to="/" />
-        </Switch>
-    </main>
+      <h1>BOILERMAKER</h1>
+      <nav>
+        {
+          isLoggedIn
+            ? <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/home">Home</Link>
+              <a href="#" onClick={handleClick}>Logout</a>
+            </div>
+            : <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+        }
+      </nav>
+      <hr />
+      {children}
     </div>
   )
 }
@@ -44,9 +51,6 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout())
-    },
-    fetchData() {
-      dispatch(fetchProducts())
     }
   }
 }

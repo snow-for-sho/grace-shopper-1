@@ -12,11 +12,7 @@ const Order = db.define('order', {
   subTotal: {
     type: Sequelize.VIRTUAL,
     get: function() {
-      if (this.items && this.items.length) {
-        return this.items.map(item => item.quantity * item.price);
-      } else {
-        return 0;
-      }
+      return this.getLineItems().reduce ((total, item) => total += item.price, 0);
     }
   },
   total: {
@@ -46,6 +42,9 @@ const Order = db.define('order', {
   },
   recipientInstructions: {
     type: Sequelize.STRING
+  },
+  paymentType: {
+    type: Sequelize.ENUM ('VISA', 'MasterCard'),
   }
 });
 
