@@ -110,7 +110,7 @@ const products = [
         title: 'Snow molds',
         description: 'Perfect shapes for your next snow fort',
         price: 500,
-        photo: '/molds.jpg',
+        photo: '/molds.jpeg',
         origin: 'New York'
     },
     {
@@ -126,7 +126,7 @@ const products = [
         description: 'Security system frozen?  Do not worry, the ice spear will deter all potential burglars',
         price: 100000000,
         inventoryQty: 1,
-        photo: '/jonSnow.png',
+        photo: '/jonSnow.jpg',
         origin: 'New York'
     }
 ];
