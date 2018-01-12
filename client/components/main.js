@@ -44,6 +44,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout())
+    },
+    fetchData() {
+      dispatch(fetchProducts())
     }
   }
 }
