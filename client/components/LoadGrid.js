@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, setCurrentCategory, setCurrentProduct} from '../store'
 import Product from './product';
 import Category from './category';
 
 const GridList = props => {
   const items = props.items
   const type = props.type;
-  console.log(items);
+  console.log("Items in GridList", items);
   return (
     <div id ="main">
       <div className="col-xs-10">
@@ -18,7 +18,7 @@ const GridList = props => {
             items.map(item => 
               <div key={item.id} className="col-xs-4">
               {
-                type === 'Product'?<Product product={item}/>:<Category category={item} />
+                type === 'Product'?<Product id={item.id} />:<Category category={item} />
               }
                 
               </div>
@@ -44,5 +44,16 @@ const mapStateCat = (state, ownProps) => {
   }
 }
 
-export const LoadProducts = connect(mapStateProd)(GridList)
-export const LoadCategories = connect(mapStateCat)(GridList)
+const mapDispatchProd = dispatch => {
+  return {
+    setCurrentProduct: (prod) => dispatch(setCurrentProduct(prod))
+  }
+}
+
+const mapDispatchCat = dispatch => {
+  return {
+    setCurrentCategory: (cat) => dispatch(setCurrentCategory(cat))
+  }
+}
+export const LoadProducts = connect(mapStateProd, mapDispatchProd)(GridList)
+export const LoadCategories = connect(mapStateCat, mapDispatchCat)(GridList)

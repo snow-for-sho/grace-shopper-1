@@ -7,7 +7,8 @@ import Topbar from './Topbar';
 import Order from './Order';
 import LoginSignup from './LoginSignup';
 import {LoadProducts, LoadCategories} from './LoadGrid';
-import {fetchProducts, fetchCategories} from '../store';
+import {fetchProducts, fetchCategories, fetchCart} from '../store';
+import Product from './product';
 
 /**
  * COMPONENT
@@ -25,18 +26,20 @@ class Main extends Component {
   }
  
   render () {
-    console.log("main - logged in", this.props.isLoggedIn)
       return (
         <div>
           <Topbar/>
           <main>
             <Switch>
                 <Route exact path="/" component={LoadCategories} />
-                <Route exact path="/cart" render={(props) => <Order type="IN_CART" {...props}/>} />     
+                    
                 <Route path="/auth" render={(props) => <LoginSignup action='Login'/>} />     
-                <Route path="/products" component={LoadProducts}  />
-                <Route path="/categories" component={LoadCategories}  />
-                <Redirect to="/" />
+                <Route exact path="/products" component={LoadProducts}  />
+                <Route exact path="/categories" component={LoadCategories}  />
+                <Route path="/products/:id" component={Product}  />
+                <Route path="/:cart" component = {Order} /> 
+                {//<Redirect to="/" />
+      }
             </Switch>
         </main>
         </div>
@@ -61,6 +64,7 @@ const mapDispatch = (dispatch) => {
     fetchData() {
       dispatch(fetchProducts())
       dispatch(fetchCategories())
+      dispatch(fetchCart())
       //dispatch(fetch(Order)), etc
     }
   }
