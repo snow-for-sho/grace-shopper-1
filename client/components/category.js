@@ -16,7 +16,8 @@ export default function Category (props) {
       }
       </div>
       <div>
-        <NavLink to={`/category/${category.id}`}>
+        <NavLink to={`/categories/${category.id}`}>
+          <img src={category.photo} width='100' height='100'/>
           <h2>{ category.title }</h2>
         </NavLink>
       </div>

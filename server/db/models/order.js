@@ -25,22 +25,31 @@ const Order = db.define('order', {
       }
     }
   },
-  recipientName: {
+  firstName: {
     type: Sequelize.STRING
   },
-  recipientEmail: {
+  lastName: {
+    type: Sequelize.STRING
+  },
+  name: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return `${this.firstName} ${this.lastName}`
+    }
+  },
+  email: {
     type: Sequelize.STRING,
     validate:{
         isEmail : true
     }
   },
-  recipientAddress: {
+  address: {
     type: Sequelize.STRING
   },
-  recipientPhone: {
+  phone: {
     type: Sequelize.STRING
   },
-  recipientInstructions: {
+  instructions: {
     type: Sequelize.STRING
   },
   paymentType: {
@@ -55,6 +64,7 @@ Order.countByCategoryId = function (id) {
       }
   });
 };
+
 
 // Order.afterCreate( (instance, options) => {
 //   console.log("Order.afterCreate");

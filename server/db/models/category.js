@@ -8,13 +8,31 @@ const Category = db.define ('category', {
         type: Sequelize.STRING,
         allowNull: false,
         notEmpty: true
+    },
+    photo: {
+        type: Sequelize.VIRTUAL,
+        get () {
+            const products = this.getProducts()
+            .then (products => {
+                return products.length?products[0].photo:'/snowflake.png';
+            })
+            .catch (console.log);
+            
+        }
+    },
+    inventoryQty: {
+        type: Sequelize.VIRTUAL,
+        get () {
+            this.getProducts()
+            .then (products => {
+                let total = 0;
+                products.forEach (prod => total+= prod.inventoryQty);
+                return total;
+            })
+            .catch (console.log);
+            
+        }
     }
-    // },
-    // rank: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: false,
-    //     defaultValue: 0
-    // }
 });
 
 Category.getPopularity = function (id) {
