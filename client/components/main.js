@@ -4,11 +4,16 @@ import {connect} from 'react-redux';
 import {withRouter, Link, Switch, Route, Redirect} from 'react-router-dom';
 import {logout} from '../store';
 import Topbar from './Topbar';
-import Order from './Order';
+import {Order, Cart} from './CartOrder';
 import LoginSignup from './LoginSignup';
-import {LoadProducts, LoadCategories} from './LoadGrid';
-import {fetchProducts, fetchCategories, fetchCart} from '../store';
+import Checkout from './Checkout';
+import {LoadProducts, LoadCategories, LoadProductsInCategory} from './LoadGrid';
+import {fetchProducts, fetchCategories, fetchCart, fetchOrders} from '../store';
 import Product from './product';
+import OrderDetails from './OrderDetails';
+import OrderList from './OrderList';
+import Account from './Account';
+import TrackOrder from './TrackOrder';
 
 /**
  * COMPONENT
@@ -24,22 +29,30 @@ class Main extends Component {
   componentDidMount () {
     this.props.fetchData();
   }
- 
+
   render () {
       return (
         <div>
           <Topbar/>
+          <ReviewList/>
           <main>
             <Switch>
                 <Route exact path="/" component={LoadCategories} />
-                    
-                <Route path="/auth" render={(props) => <LoginSignup action='Login'/>} />     
+                <Route exact path="/login" render={(props) => <LoginSignup action='Login'/>} />   
+                <Route exact path="/signup" render={(props) => <LoginSignup action='Signup'/>} />    
                 <Route exact path="/products" component={LoadProducts}  />
+                <Route exact path="/checkout" component = {Checkout} /> 
                 <Route exact path="/categories" component={LoadCategories}  />
+                <Route exact path="/orders" component={OrderList} />
+                <Route exact path="/account" component={Account} />
+                <Route exact path="/cart" component = {Cart} /> 
+                <Route exact path="/trackorder" component = {TrackOrder} /> 
                 <Route path="/products/:id" component={Product}  />
-                <Route path="/:cart" component = {Order} /> 
-                {//<Redirect to="/" />
-      }
+                <Route path="/categories/:id" component={LoadProductsInCategory} />
+                <Route path="/orders/:id" component ={OrderDetails} />
+                
+                <Redirect to="/" />
+      
             </Switch>
         </main>
         </div>
@@ -65,7 +78,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProducts())
       dispatch(fetchCategories())
       dispatch(fetchCart())
-      //dispatch(fetch(Order)), etc
+      dispatch(fetchOrders())
     }
   }
 }

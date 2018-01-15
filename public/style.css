@@ -37,7 +37,12 @@ form div {
   height: 300px;
 }
 
-.product-item img {
+.product-item-img {
   width: 100px;
   height: 100px;
+}
+
+table {
+  width: 100%;
+  border: 1px solid black;
 }

@@ -11,6 +11,12 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     //allowNull: false
   },
+  name: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return `${this.firstName} ${this.lastName}`;
+    }
+  },
   address: {
     type: Sequelize.STRING
   },

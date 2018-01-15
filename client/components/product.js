@@ -3,16 +3,34 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux';
 import {addToCart} from '../store';
-//import Review from './review'
+import Review from './Review'
+
 function Product (props) {
-  console.log("product props",props)
+<<<<<<< HEAD
+  //console.log('props', props.products)
+  let product, singleProduct=false;
+  if (!props.item) {
+    console.log("Single Product", props.match.params.id);
+    singleProduct = true;
+    product = props.products.find(product=>product.id === +props.match.params.id)
+  //  console.log('filtered product', product)
+  } else {
+    product = props.item;
+  }
+  //console.log('gotProduct', product)
+  if (!product) {
+    return null;
+  }
+=======
+  // console.log("product props",props)
   const id = props.id || props.match.params.id
   const singleProduct = props.match.params.id != undefined;
   const product = props.products[id];
   if (!product || product.inventoryQty === 0) return null;
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
   return (
     <form onSubmit={props.addToCart}>
-    <li>
+  
       <div>
       {
         // Shows image to display for grid link
@@ -24,11 +42,18 @@ function Product (props) {
         </NavLink>
         <h4>Description: { product.description }</h4>
         <h4>Price: { product.price/100 }</h4>
-        {singleProduct?getSelect ("qty", product.inventoryQty):
+        {singleProduct && product.inventoryQty > 0?getSelect ("qty", product.inventoryQty):
         <h4>Inventory Remaining: { product.inventoryQty }</h4>}
+<<<<<<< HEAD
+       { //<div>
+        //  <label htmlFor="size">Product Size</label>
+           // react-redux-forms scaffolding for choosing a size
+=======
+        <h4>Reviews:<Review review={product.reviews[0]} /></h4>
         <div>
           <label htmlFor="size">Product Size</label>
           { // react-redux-forms scaffolding for choosing a size
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
           // <Field name="size" component="select" >
           //   <option value={ product.size }>Current size is: { product.size }</option>
           //   <option value="1lb">1lb</option>
@@ -36,11 +61,11 @@ function Product (props) {
           //   <option value="10lb">10lb</option>
           //   <option value="20lb">20lb</option>
           // </Field>
-          }
-        </div>
-        <div>
-          <label htmlFor="origin">Product Origin</label>
-          { // react-redux-forms scaffolding for choosing a origin
+          
+       // </div>
+      //  <div>
+     //     <label htmlFor="origin">Product Origin</label>
+           // react-redux-forms scaffolding for choosing a origin
           // <Field name="origin" component="select" >
           //   <option value={ product.origin }>Current origin is: { product.origin }</option>
           //   <option value="New York">New York</option>
@@ -51,28 +76,40 @@ function Product (props) {
           //   <option value="Maine">Maine</option>
           //   <option value="Utah">Utah</option>
           // </Field>
-          }
-        </div>
+          
+       // </div>
+       }
       </div>
       {
         // how to get access to the reviews for a given product?
         // product.review
       }
+<<<<<<< HEAD
     { 
-      singleProduct ?
+      singleProduct && product.inventoryQty?
           <button type='submit' >Add To Cart </button>
           : <span/>
       //  <Review product={product} /> 
      
   }
+   
+=======
+    {
+      singleProduct ?
+          <button type='submit' >Add To Cart </button>
+          : <span/>
+      //  <Review product={product} />
+
+    }
     </li>
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
 </form>
   );
 }
 
 const getSelect = (name, max) => {
   const arr = [];
-  for (let i = 1; i<max; i++) {
+  for (let i = 1; i<=max; i++) {
     arr.push(<option value={i} key={i}>{i}</option>)
   }
   // return (
@@ -110,8 +147,9 @@ const merge = (state, actions, ownProps) => {
     addToCart: (e) => {
       e.preventDefault();
       const prodId = +e.target.id.value;
+      //console.log('product id', prodId)
       const prods = state.products
-      const lineItem = {quantity: e.target.qty.value, product: prods[prodId]}
+      const lineItem = {quantity: e.target.qty.value, product: prods.find(prod=>prod.id===prodId)}
       actions.addLineItem(lineItem)
     }
   }

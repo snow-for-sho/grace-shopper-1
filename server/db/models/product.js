@@ -58,4 +58,14 @@ Product.countByCategoryId = function (id) {
     });
 };
 
+Product.findByTitle = function (title) {
+    return Product.findAll({
+        where: {
+            title: {
+                [Sequelize.Op.iLike]: `%${title}%`
+            }
+        }
+    })
+}
+
 module.exports = Product;
