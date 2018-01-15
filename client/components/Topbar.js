@@ -25,7 +25,7 @@ const Topbar = props => {
                 {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/auth/login">Login</Link>}
                 {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/auth/signup">Signup</Link>}
             </nav>
-        
+
          </div>
     );
 }
@@ -41,7 +41,7 @@ const mapDispatch = (dispatch) => ({
 
 const getCartSize = cart => {
     let total = 0;
-    console.log("get cart size", cart);
+    // console.log("get cart size", cart);
     Object.keys(cart).forEach (key => {
         console.log("qty for each",cart[key], cart[key].quantity)
         total += +(cart[key].quantity);
