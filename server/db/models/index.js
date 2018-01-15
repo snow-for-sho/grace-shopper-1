@@ -47,5 +47,5 @@ LineItem.belongsTo(Order);
 Order.belongsToMany(LineItem, {through: 'LineItemOrder'});
 
 module.exports = {
-  User, Category, Product, Review, Order
+  User, Category, Product, Review, Order, LineItem
 }
