@@ -17,10 +17,9 @@ class MyOrders extends Component {
       <div>
       <h3>My Order History</h3>
       <ul>
-      {this.props.order.map((order) =>
-        Date: {order.date}
-        Status: {order.status}
-      )}
+        {this.props.order.map((order) =>
+          Date: {order.date} Status: {order.status}
+        )}
       </ul>
       </div>
 
