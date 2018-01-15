@@ -44,6 +44,7 @@ export const fetchCart = () => dispatch => {
         .catch (console.log);
     }
     else {
+
         console.log("getting cart")
         let cart; 
         //console.log(cart)
