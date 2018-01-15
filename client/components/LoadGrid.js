@@ -3,30 +3,30 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, setCurrentCategory, setCurrentProduct} from '../store'
-import Product from './product';
-import Category from './category';
+import Product from './Product';
+import Category from './Category';
 
 const GridList = props => {
   const items = props.items
   const type = props.type;
-  console.log("Items in GridList", items);
+  // console.log("Items in GridList", items);
   return (
     <div id ="main">
       <div className="col-xs-10">
         <div className="row">
-          { 
-            items.map(item => 
+          {
+            items.map(item =>
               <div key={item.id} className="col-xs-4">
               {
                 type === 'Product'?<Product id={item.id} />:<Category category={item} />
               }
-                
+
               </div>
             )
           }
         </div>
       </div>
-    </div>  
+    </div>
   )
 }
 

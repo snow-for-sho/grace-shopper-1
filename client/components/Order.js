@@ -19,9 +19,9 @@ class Order extends Component {
     }
 
     render () {
-        console.log('props', this.props);
+        // console.log('props', this.props);
         const items = this.props.cart;
-        console.log("Items in cart", items);
+        // console.log("Items in cart", items);
         let total = 0;
         if (items.length)
             return (
@@ -29,7 +29,7 @@ class Order extends Component {
                     {
                         items.map( (lineItem, i) => {
                             total += lineItem.price;
-                            console.log("computed total")
+                            // console.log("computed total")
                             return <LineItem item={lineItem}/>
                         })
                     }
