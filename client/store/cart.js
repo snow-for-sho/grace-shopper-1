@@ -16,7 +16,7 @@ const isLocalCartEmpty = () => {
     if (cart) {
         const items = JSON.parse(cart).items;
         console.log('items in local cart', items)
-        if (Object.keys(items).length) {
+        if (items && Object.keys(items).length) {
             return false;
         }
     }
@@ -25,7 +25,7 @@ const isLocalCartEmpty = () => {
 
 export const fetchCart = () => dispatch => {
     console.log("FETCHING CART");
-    // localStorage.removeItem('cart'); 
+    // localStorage.removeItem('cart');
     let cart;
     if (isLoggedIn() && isLocalCartEmpty()) {
         console.log("getting saved cart")
@@ -46,19 +46,19 @@ export const fetchCart = () => dispatch => {
     else {
 
         console.log("getting cart")
-        let cart; 
+        let cart;
         //console.log(cart)
         if (isLocalCartEmpty()) {
             console.log("cart is empty")
             cart = initCart;
             localStorage.setItem('cart', JSON.stringify(cart));
-        } else 
+        } else
             cart = JSON.parse(localStorage.getItem('cart'));
         console.log("fetched cart",cart);
         dispatch(getCart (cart));
-        
+
     }
-    
+
 }
 
 export const submitCart = (recipientInfo, history) => dispatch => {
@@ -114,7 +114,7 @@ export const updateCart = (prodId, qty) => dispatch => {
 
     console.log("UPDATING CART", cart, prodId, qty)
     const diff = cart.items[prodId].quantity - qty;
-    cart.items[prodId].quantity = +qty;  
+    cart.items[prodId].quantity = +qty;
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log(cart);
 
@@ -151,12 +151,12 @@ const initCart = {
 
 export default function (state = initCart, action) {
     switch (action.type) {
-        case GET_CART: 
+        case GET_CART:
             return action.cart;
-        case UPDATE_RECIPIENT: 
+        case UPDATE_RECIPIENT:
             const recipient = {...state.recipientInfo}
             recipient[action.fieldName] = action.fieldValue;
             return {...state, recipientInfo:recipient}
         default: return state;
-    }    
+    }
 }
