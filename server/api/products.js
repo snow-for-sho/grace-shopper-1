@@ -5,13 +5,9 @@ module.exports = router
 // Gets all products, or one product based on query string title
 router.get('/', (req, res, next) => {
   const title = req.query.title;
-
   if (title) {
-    Product.findOne({
-      where: {
-        title: title
-      }
-    })
+    console.log("find by title", title)
+    Product.findByTitle(title)
     .then(product => res.json(product))
     .catch(next)
   } else {
@@ -20,7 +16,7 @@ router.get('/', (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['title', 'description', 'price', 'inventoryQty', 'photo', 'size', 'id'],
-      include: {model: Review}
+      include: [{all: true, nested: true}]
     })
     .then(products => res.json(products))
     .catch(next)

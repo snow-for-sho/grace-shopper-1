@@ -87,7 +87,8 @@ const products = [
         description: 'Be the boss of the next snowball fight',
         price: 12500,
         inventoryQty: 5,
-        origin: 'New York'
+        origin: 'New York',
+        photo:'snowball_launcher.png'
     },
     {
         title: 'Pre-made snowman',
@@ -95,7 +96,8 @@ const products = [
         price: 5000,
         inventoryQty: 7,
         size: '20',
-        origin: 'Oregon'
+        origin: 'Oregon',
+        photo: '/snowmanKit.jpg'
     },
     {
         title: 'Pre-made snowman',
@@ -110,6 +112,7 @@ const products = [
         title: 'Snow molds',
         description: 'Perfect shapes for your next snow fort',
         price: 500,
+        inventoryQty:3,
         photo: '/molds.jpeg',
         origin: 'New York'
     },
@@ -123,7 +126,7 @@ const products = [
     },
     {
         title: 'Jon Snow',
-        description: 'Security system frozen?  Do not worry, the ice spear will deter all potential burglars',
+        description: 'Need I say more?',
         price: 100000000,
         inventoryQty: 1,
         photo: '/jonSnow.jpg',
@@ -206,9 +209,9 @@ const seed = () => {
                             //1.  Add Products to categories
                             return Promise.all([catData[0].setProducts([prodData[0], prodData[1]]),
                             catData[1].setProducts([prodData[2], prodData[3]]),
-                            catData[2].setProducts([prodData[5],prodData[9],prodData[6]]),
+                            catData[2].setProducts([prodData[5],prodData[9],prodData[6], prodData[7]]),
                             catData[3].addProduct(prodData[4]),
-                            catData[4].setProducts([prodData[8],prodData[7]]),
+                            catData[4].setProducts([prodData[8],prodData[9]]),
 
                             //     //2.  Set user for Order Id
                             // orderData[0].setUser(userData[0]),
