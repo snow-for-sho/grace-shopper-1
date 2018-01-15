@@ -7,11 +7,13 @@ router.get('/', (req, res, next) => {
   const title = req.query.title;
 
   if (title) {
-    Category.findAll({where: {title}})
+    Category.findAll({where: {title},
+      include: [{all: true, nested: true}]})
     .then(categories => res.json(categories))
     .catch(next)
   } else {
-    Category.findAll()
+    Category.findAll({
+      include: [{all: true, nested: true}]})
     .then(categories => res.json(categories))
     .catch(next)
   }

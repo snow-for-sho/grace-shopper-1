@@ -20,7 +20,7 @@ const LoginSignup = (props) => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">Login/Signup</button>
+          <button type="submit">{props.action==='Login'?'Login':'Signup'}</button>
         </div>
       </form>
       <a href="/auth/google">Use  Google</a> &nbsp;&nbsp;
