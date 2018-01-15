@@ -3,8 +3,10 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux';
 import {addToCart} from '../store';
-//import Review from './review'
+import Review from './Review'
+
 function Product (props) {
+<<<<<<< HEAD
   //console.log('props', props.products)
   let product, singleProduct=false;
   if (!props.item) {
@@ -19,6 +21,13 @@ function Product (props) {
   if (!product) {
     return null;
   }
+=======
+  // console.log("product props",props)
+  const id = props.id || props.match.params.id
+  const singleProduct = props.match.params.id != undefined;
+  const product = props.products[id];
+  if (!product || product.inventoryQty === 0) return null;
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
   return (
     <form onSubmit={props.addToCart}>
   
@@ -35,9 +44,16 @@ function Product (props) {
         <h4>Price: { product.price/100 }</h4>
         {singleProduct && product.inventoryQty > 0?getSelect ("qty", product.inventoryQty):
         <h4>Inventory Remaining: { product.inventoryQty }</h4>}
+<<<<<<< HEAD
        { //<div>
         //  <label htmlFor="size">Product Size</label>
            // react-redux-forms scaffolding for choosing a size
+=======
+        <h4>Reviews:<Review review={product.reviews[0]} /></h4>
+        <div>
+          <label htmlFor="size">Product Size</label>
+          { // react-redux-forms scaffolding for choosing a size
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
           // <Field name="size" component="select" >
           //   <option value={ product.size }>Current size is: { product.size }</option>
           //   <option value="1lb">1lb</option>
@@ -68,6 +84,7 @@ function Product (props) {
         // how to get access to the reviews for a given product?
         // product.review
       }
+<<<<<<< HEAD
     { 
       singleProduct && product.inventoryQty?
           <button type='submit' >Add To Cart </button>
@@ -76,6 +93,16 @@ function Product (props) {
      
   }
    
+=======
+    {
+      singleProduct ?
+          <button type='submit' >Add To Cart </button>
+          : <span/>
+      //  <Review product={product} />
+
+    }
+    </li>
+>>>>>>> 17c4533647eb9f0f42bc5397e1bade73ddfb7f9a
 </form>
   );
 }

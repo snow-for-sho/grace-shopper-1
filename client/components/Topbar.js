@@ -29,7 +29,7 @@ const Topbar = props => {
                 {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/signup">Signup</Link>}
                 {!props.isLoggedIn?<Link to='/trackorder'>Track Order</Link>:<span/>}
             </nav>
-        
+
          </div>
     );
 }

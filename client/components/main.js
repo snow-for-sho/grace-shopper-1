@@ -29,11 +29,12 @@ class Main extends Component {
   componentDidMount () {
     this.props.fetchData();
   }
- 
+
   render () {
       return (
         <div>
           <Topbar/>
+          <ReviewList/>
           <main>
             <Switch>
                 <Route exact path="/" component={LoadCategories} />

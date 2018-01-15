@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, setCurrentCategory, setCurrentProduct} from '../store'
-import Product from './product';
-import Category from './category';
+import Product from './Product';
+import Category from './Category';
 
 class GridList extends Component {
   constructor (props) {
@@ -52,6 +52,7 @@ class GridList extends Component {
         </div>
     )
   }
+
 }
 const mapStateProd = (state, ownProps) => {
   return {

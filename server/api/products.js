@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Category} = require('../db/models')
+const {Product, Category, Review} = require('../db/models')
 module.exports = router
 
 // Gets all products, or one product based on query string title
