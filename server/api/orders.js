@@ -75,7 +75,10 @@ router.post('/', function (req, res, next) {
   if (userId) {
     mainOrder = Order.findOrCreate({where:{userId:userId.id, status:'IN_CART'}}).then(order=>order[0]);
     prodsToUpdate = mainOrder
-    .then(order => order.update({...req.body.recipientInfo, status:'CREATED'}))
+    .then(order => {
+      req.body.recipientInfo[status] = 'CREATED'
+      order.update(req.body.recipientInfo)
+    })
     .then(order=>order.getLineItems())
   }
   else {
