@@ -8,7 +8,7 @@ export default function Review (props) {
   return (
     <li>
       <div>
-        <NavLink to={`/review/${review.id}`}>
+        <NavLink to={`/reviews/${review.id}`}>
           <h2>Headline: { review.headline }</h2>
         </NavLink>
         <h4>{ review.reviewText }</h4>

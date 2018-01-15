@@ -6,5 +6,5 @@
 
 export {default as Main} from './Main'
 export {default as UserHome} from './User-Home'
-export {Login, Signup} from './Auth-form'
+//export {Login, Signup} from './Auth-form'
 

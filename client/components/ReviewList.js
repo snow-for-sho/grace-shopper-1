@@ -6,7 +6,13 @@ import { setCurrentProduct} from '../store'
 import Review from './Review'
 
 const LoadReviews = props => {
-  const products = this.state.products || [];
+  let products;
+  if (props.selectedProduct) {
+    products = [props.selectedProduct];
+  } else {
+    products = props.products || [];
+  }
+
   console.log('review list log: ')
   return (
     <div id ="main">
@@ -37,7 +43,7 @@ const LoadReviews = props => {
 
 const mapStateProd = (state, ownProps) => {
   return {
-    items: state.products,
+    products: state.products,
     type: 'Product'
   }
 }
@@ -48,5 +54,5 @@ const mapDispatchProd = dispatch => {
   }
 }
 
-export const ReviewList = connect(mapStateProd, mapDispatchProd)(LoadReviews)
+export default connect(mapStateProd, mapDispatchProd)(LoadReviews)
 

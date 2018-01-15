@@ -14,6 +14,8 @@ import OrderDetails from './OrderDetails';
 import OrderList from './OrderList';
 import Account from './Account';
 import TrackOrder from './TrackOrder';
+import ReviewList from './ReviewList';
+import Review from './Review';
 
 /**
  * COMPONENT
@@ -34,7 +36,6 @@ class Main extends Component {
       return (
         <div>
           <Topbar/>
-          <ReviewList/>
           <main>
             <Switch>
                 <Route exact path="/" component={LoadCategories} />
@@ -47,10 +48,11 @@ class Main extends Component {
                 <Route exact path="/account" component={Account} />
                 <Route exact path="/cart" component = {Cart} /> 
                 <Route exact path="/trackorder" component = {TrackOrder} /> 
+                <Route exact path="/reviews" component={ReviewList} />
                 <Route path="/products/:id" component={Product}  />
                 <Route path="/categories/:id" component={LoadProductsInCategory} />
                 <Route path="/orders/:id" component ={OrderDetails} />
-                
+                <Route path="/reviews/:id" component ={Review} />
                 <Redirect to="/" />
       
             </Switch>
