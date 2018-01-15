@@ -14825,7 +14825,7 @@ var isLocalCartEmpty = function isLocalCartEmpty() {
 var fetchCart = exports.fetchCart = function fetchCart() {
     return function (dispatch) {
         console.log("FETCHING CART");
-        //localStorage.removeItem('cart');
+        // localStorage.removeItem('cart'); 
         var cart = void 0;
         if (isLoggedIn() && isLocalCartEmpty()) {
             console.log("getting saved cart");

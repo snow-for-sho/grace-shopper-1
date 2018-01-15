@@ -25,7 +25,7 @@ const isLocalCartEmpty = () => {
 
 export const fetchCart = () => dispatch => {
     console.log("FETCHING CART");
-    //localStorage.removeItem('cart');
+    // localStorage.removeItem('cart'); 
     let cart;
     if (isLoggedIn() && isLocalCartEmpty()) {
         console.log("getting saved cart")
