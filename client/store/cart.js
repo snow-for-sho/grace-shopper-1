@@ -19,7 +19,7 @@ export const fetchCart = () => dispatch => {
     }
     else {
         
-        cart = JSON.parse(localStorage.getItem('cart')); 
+        // cart = JSON.parse(localStorage.getItem('cart')); 
         if (!cart) {
             cart = {};
             localStorage.setItem('cart', JSON.stringify(cart));
