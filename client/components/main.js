@@ -6,9 +6,10 @@ import {logout} from '../store';
 import Topbar from './Topbar';
 import Order from './Order';
 import LoginSignup from './LoginSignup';
-import {LoadProducts, LoadCategories} from './LoadGrid';
-import {fetchProducts, fetchCategories, fetchCart} from '../store';
-import Product from './product';
+import { LoadProducts, LoadCategories } from './LoadGrid';
+import { ReviewList } from './ReviewList';
+import { fetchProducts, fetchCategories, fetchCart } from '../store';
+import Product from './Product';
 
 /**
  * COMPONENT
@@ -24,20 +25,27 @@ class Main extends Component {
   componentDidMount () {
     this.props.fetchData();
   }
- 
+
   render () {
       return (
         <div>
           <Topbar/>
+          <ReviewList/>
           <main>
             <Switch>
-                <Route exact path="/" component={LoadCategories} />
-                    
-                <Route path="/auth" render={(props) => <LoginSignup action='Login'/>} />     
+                <Route exact path="/reviews/"
+                component={ReviewList}
+                // render={(props) => <ReviewList />}
+                />
+
+                <Route exact path="/" component={ReviewList} />
+
+                <Route path="/auth" render={(props) => <LoginSignup action='Login'/>} />
                 <Route exact path="/products" component={LoadProducts}  />
                 <Route exact path="/categories" component={LoadCategories}  />
                 <Route path="/products/:id" component={Product}  />
-                <Route path="/:cart" component = {Order} /> 
+
+                <Route path="/:cart" component = {Order} />
                 {//<Redirect to="/" />
       }
             </Switch>

@@ -3,9 +3,10 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux';
 import {addToCart} from '../store';
-//import Review from './review'
+import Review from './Review'
+
 function Product (props) {
-  console.log("product props",props)
+  // console.log("product props",props)
   const id = props.id || props.match.params.id
   const singleProduct = props.match.params.id != undefined;
   const product = props.products[id];
@@ -26,6 +27,7 @@ function Product (props) {
         <h4>Price: { product.price/100 }</h4>
         {singleProduct?getSelect ("qty", product.inventoryQty):
         <h4>Inventory Remaining: { product.inventoryQty }</h4>}
+        <h4>Reviews:<Review review={product.reviews[0]} /></h4>
         <div>
           <label htmlFor="size">Product Size</label>
           { // react-redux-forms scaffolding for choosing a size
@@ -58,13 +60,13 @@ function Product (props) {
         // how to get access to the reviews for a given product?
         // product.review
       }
-    { 
+    {
       singleProduct ?
           <button type='submit' >Add To Cart </button>
           : <span/>
-      //  <Review product={product} /> 
-     
-  }
+      //  <Review product={product} />
+
+    }
     </li>
 </form>
   );
