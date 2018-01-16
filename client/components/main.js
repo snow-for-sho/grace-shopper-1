@@ -16,6 +16,8 @@ import TrackOrder from './TrackOrder';
 import ReviewList from './ReviewList';
 import Review from './Review';
 import AdminDash from './AdminDash';
+import AdminProductList from './AdminProductList';
+import AdminEditProduct from './AdminEditProduct';
 import UserList from './UserList';
 
 /**
@@ -56,7 +58,8 @@ class Main extends Component {
                 <Route exact path="/admin" component={AdminDash} />
                 <Route exact path="/admin/orders" component={OrderListAdmin} />
                 <Route exact path="/admin/categories" component={LoadCategories} />
-                <Route exact path="/admin/products" component={LoadProducts} />
+                <Route exact path="/admin/products" component={AdminProductList} />
+                <Route path="/admin/products/:id" component={AdminEditProduct} />
                 <Route exact path="/admin/users" component={UserList} />
                 {
                  // ___________________

@@ -9,7 +9,6 @@ export default function AdminDash (props) {
       <nav>
         <h2>Master Lists</h2>
         <Link to="/admin/orders">Orders</Link>
-        <Link to="/admin/categories">Categories</Link>
         <Link to="/admin/products">Products</Link>
         <Link to="/admin/users">Users</Link>
       </nav>
