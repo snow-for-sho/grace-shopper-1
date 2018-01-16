@@ -6,6 +6,24 @@ import {fetchProducts} from '../store'
 
 const Topbar = props => {
     return (
+
+        <nav
+        className="navbar navbar-default navbar-transparent navbar-fixed-top navbar-color-on-scroll"
+        id="sectionsNav">
+        <div className="container">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle" data-toggle="collapse">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </button>
+            <Link className="navbar-brand" to="/">
+              Snow Fo Sho
+            </Link>
+          </div>
+        </div>
+
          <div className='topbar'>
              <nav>
                  <Link to="/">Home</Link>
