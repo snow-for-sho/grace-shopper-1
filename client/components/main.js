@@ -16,6 +16,7 @@ import Account from './Account';
 import TrackOrder from './TrackOrder';
 import ReviewList from './ReviewList';
 import Review from './Review';
+import AdminDash from './AdminDash';
 
 /**
  * COMPONENT
@@ -39,22 +40,32 @@ class Main extends Component {
           <main className="main">
             <Switch>
                 <Route exact path="/" component={LoadCategories} />
-                <Route exact path="/login" render={(props) => <LoginSignup action='Login'/>} />   
-                <Route exact path="/signup" render={(props) => <LoginSignup action='Signup'/>} />    
+                <Route exact path="/login" render={(props) => <LoginSignup action='Login'/>} />
+                <Route exact path="/signup" render={(props) => <LoginSignup action='Signup'/>} />
                 <Route exact path="/products" component={LoadProducts}  />
-                <Route exact path="/checkout" component = {Checkout} /> 
+                <Route exact path="/checkout" component = {Checkout} />
                 <Route exact path="/categories" component={LoadCategories}  />
                 <Route exact path="/orders" component={OrderList} />
                 <Route exact path="/account" component={Account} />
-                <Route exact path="/cart" component = {Cart} /> 
-                <Route exact path="/trackorder" component = {TrackOrder} /> 
+                <Route exact path="/cart" component = {Cart} />
+                <Route exact path="/trackorder" component = {TrackOrder} />
                 <Route exact path="/reviews" component={ReviewList} />
+                {
+                  // admin routes:
+                }
+                <Route exact path="/admin" component={AdminDash} />
+                <Route exact path="/admin/orders" component={OrderList} />
+                <Route exact path="/admin/categories" component={LoadCategories} />
+                <Route exact path="/admin/products" component={LoadProducts} />
+                <Route exact path="/admin/users" component={ReviewList} />
+                {
+                 // ___________________
+                }
                 <Route path="/products/:id" component={Product}  />
                 <Route path="/categories/:id" component={LoadProductsInCategory} />
                 <Route path="/orders/:id" component ={OrderDetails} />
                 <Route path="/reviews/:id" component ={Review} />
                 <Redirect to="/" />
-      
             </Switch>
         </main>
         </div>
