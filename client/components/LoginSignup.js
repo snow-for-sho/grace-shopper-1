@@ -10,7 +10,7 @@ const LoginSignup = (props) => {
 
   return (
     <div>
-      <form onSubmit={props.handleSubmit} name='Login/Signup'>
+      <form onSubmit={props.handleSubmit} name={props.action==='Login'?'login':'signup'}>
         <div>
           <label htmlFor="email"><small>Email</small></label>
           <input name="email" type="text" />

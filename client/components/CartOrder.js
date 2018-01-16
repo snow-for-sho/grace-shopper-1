@@ -74,7 +74,7 @@ class CartOrder extends Component {
     formatTr  (i, lineItem)  {
         return (
             <tr key={i}>
-                <td>{i}</td>
+                <td>{i+1}</td>
                 <td><img src={lineItem.product.photo} width='100' height='100'/></td>
                 <td><Link to={`/products/${lineItem.product.id}`}>{lineItem.product.title}</Link></td>
                 <td>${lineItem.product.price/100}</td>
@@ -108,8 +108,12 @@ const mapStateCart = state => ({
 const mapStateOrder = (state, ownProps) => {
     let items, status;
     //lookup specific order
-    console.log("own props in order", ownProps.match)
-    if (ownProps.id || (ownProps.match && ownProps.match.params && ownProps.match.params.id)) {     
+    console.log("own props in order", ownProps)
+    if (ownProps.trackedOrder) {
+        status = ownProps.trackedOrder.status,
+        items = ownProps.trackedOrder.lineItems
+    }
+    else if (ownProps.id || (ownProps.match && ownProps.match.params && ownProps.match.params.id)) {     
         const orderId = ownProps.id?ownProps.id:ownProps.match.params.id;
         console.log("Order details loading",state.orders )
         const order = state.orders.find(order=>order.id === +orderId);

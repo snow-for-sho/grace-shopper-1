@@ -15,28 +15,14 @@ const LoadReviews = props => {
 
   console.log('review list log: ')
   return (
-    <div id ="main">
-      <div className="col-xs-10">
+    <div className = "main" id ="main">
         <div className="row">
           {
             products.map(product =>
-              <div key={product.id} className="col-xs-4">
-              {
-                product.reviews.map(review =>
-                  <div key={review.id} className="col-xs-4">
-                  {
-                  // <NavLink to={`/reviews/${review.id}`}>
-                    <Review review={ review }/>
-                  // </NavLink>
-                  }
-                  </div>
-                )
-              }
-              </div>
+                product.reviews.map(review =><div key={review.id}><Review review={ review }/></div>)
             )
           }
         </div>
-      </div>
     </div>
   )
 }

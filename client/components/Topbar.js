@@ -49,10 +49,10 @@ const mapDispatch = (dispatch) => ({
 
 const getCartSize = cart => {
     let total = 0;
-    console.log("get cart size", cart.items);
+    //console.log("get cart size", cart.items);
     if (cart.items)
         Object.keys(cart.items).forEach (key => {
-         console.log("qty for each",cart.items[key], cart.items[key].quantity)
+         //console.log("qty for each",cart.items[key], cart.items[key].quantity)
             total += +(cart.items[key].quantity);
         });
     return total;
