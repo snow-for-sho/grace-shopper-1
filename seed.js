@@ -11,10 +11,11 @@ const users = [
     {
         firstName: 'Snow',
         lastName: 'Lover',
-        email: 'a@gmail.com',
+        email: 'snowfosho1@gmail.com',
         cart:[{1:5}],
         password: '123456',
-        salt: 'fullstack'
+        salt: 'fullstack',
+        isAdmin: 'true'
     },
 
     {
@@ -158,20 +159,23 @@ const lineItems = [
 const orders = [
     {
         status: 'PROCESSING',
-        recipientName: 'Karen McPherson',
-        recipientEmail: 'KMP@gmai.com',
+        firstName: 'Karen',
+        lastName: 'McPherson',
+        email: 'KMP@gmai.com',
         recipientAddress: '5 Hanover Sq, New York, NY'
     },
     {
         status: 'SHIPPED',
-        recipientName: 'Karen McPherson',
-        recipientEmail: 'KMP@gmai.com',
+        firstName: 'Karen',
+        lastName: 'McPherson',
+        email: 'KMP@gmai.com',
         recipientAddress: '5 Hanover Sq, New York, NY'
     },
     {
         status: 'IN_CART',
-        recipientName: 'Karen McPherson',
-        recipientEmail: 'KMP@gmai.com',
+        firstName: 'Karen',
+        lastName: 'McPherson',
+        email: 'KMP@gmai.com',
         recipientAddress: '5 Hanover Sq, New York, NY'
     }
 

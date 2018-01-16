@@ -1,15 +1,16 @@
 'use strict';
 const router = require('express').Router();
-const { Order, LineItem, Product } = require('../db/models');
+const { Order, LineItem, Product, User } = require('../db/models');
 const nodemailer = require ('nodemailer');
 
 module.exports = router;
 
 // see all orders
 router.get('/', (req, res, next) => {
+  //console.log("req.user", req.user, "query", req.query)
   if (req.user) {
     const carted = req.query.status;
-    console.log('carted: ', carted)
+    //console.log('carted: ', carted)
     if (carted === 'IN_CART') {
       return Order.findOne({
         where: {status: 'IN_CART', userId: req.user.id},
@@ -20,7 +21,27 @@ router.get('/', (req, res, next) => {
       })
       .then(order => res.json(order))
       .catch(next)
-    } else {
+    }
+    else if (req.query.admin) {
+      console.log ("GOT ADMIN REQUEST FOR ORDERS")
+      User.findById(req.user.id)
+      .then(user => {
+        //console.log("found user", user)
+        if (user.isAdmin) {
+         return Order.findAll({
+            include:[{all:true}]
+          })
+        } else {
+          return null;
+        }
+      })
+      .then (orders => {
+        //console.log("got orders", orders)
+        res.json(orders)
+      })
+      .catch (next);
+    }  
+    else {
       return Order.findAll({
         where: {
           userId: req.user.id
@@ -50,21 +71,6 @@ router.get('/:id', (req, res, next) => {
       },
       include:[{all:true}]
     })
-  } else if (req.query.admin) {
-    User.findById(req.user.id)
-    .then(user => {
-      if (user.isAdmin) {
-       return Orders.findAll({
-          include:[{all:true}]
-        })
-      } else {
-        return null;
-      }
-    })
-    .then (orders => {
-      res.json(order)
-    })
-    .catch (next);
   }  else {
     order = Order.findOne ({
       where: {
@@ -171,10 +177,19 @@ router.put('/:id', function (req, res, next) {
   const id = req.params.id;
   //console.log("in order.js PUT CART", id, req.body)
   if (id && id !== 'null') {
-      Order.findById(id)
-        .then(order => order.update(req.body))
-        .then(order => res.json(order))
-        .catch(next)
+    User.findById (req.user.id)
+    .then (user => {
+      if (user.isAdmin) {
+        return Order.findById(id)
+        .then (order => order.update(req.body))
+      }
+      return null;
+    })  
+   .then(order => {
+     if (order && order.email) sendOrder(order, " Order status has been updated to:  "+order.status);
+     res.json(order)
+   })
+    .catch(next)
     }
    else { //create new cart
     //const params = req.body;

@@ -20,17 +20,17 @@ export const updateProductQty = (prodId, qtyUsed) => {
 }
 
 export const addReviewToProduct = review => {
-  console.log("dispatching add review to product")
+  //console.log("dispatching add review to product")
   return {type: ADD_REVIEW_TO_PRODUCT, review}
 }
 // Thunk Creators
 export const fetchProducts = (title) => dispatch => {
   const url = title?`/api/products/?title=${title}`:'/api/products'
-  console.log("getting products", url)
+ // console.log("getting products", url)
   axios.get(url)
     .then (res=>res.data)
     .then(res => {
-      console.log("got products", res)
+     // console.log("got products", res)
       dispatch(getProducts(res));
     })
     .catch(err => console.error(err));
