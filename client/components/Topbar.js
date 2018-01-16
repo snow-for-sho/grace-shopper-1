@@ -33,10 +33,11 @@ const Topbar = props => {
             <div>
                 <div><h3>Snow Fo Sho</h3></div>
                 <div>
-                <form onSubmit={props.submitSearch}>
+                <form className="navbar-form navbar-right" 
+                  onSubmit={props.submitSearch}>
                     <input type='text' name='search' placeholder='search...'/>
                     <button name='submit'>
-                        <i id='search' className="fa fa-search"></i>
+                        <i id='search' className="material-icons">search</i>
                     </button>
                 </form>
                 </div>
@@ -52,11 +53,12 @@ const Topbar = props => {
     );
 }
 
-const mapState = (state) => ({
-    isLoggedIn: !!state.user.id,
-    cartSize: getCartSize(state.cart)
-})
-
+{
+// const mapState = (state) => ({
+//     isLoggedIn: !!state.user.id,
+//     cartSize: getCartSize(state.cart)
+// })
+}
 const mapDispatch = (dispatch) => ({
     handleLogout: ()=>dispatch(logout()),
     submitSearch: (e) => {
