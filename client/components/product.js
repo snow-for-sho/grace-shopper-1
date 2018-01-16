@@ -49,7 +49,7 @@ class Product extends Component {
             <h4>Description: { product.description }</h4>
             <h4>Price: ${ product.price/100 }</h4>
             {shouldDisplay?this.getSelect ("qty", product.inventoryQty):
-            <h4>Inventory Remaining: { product.inventoryQty }</h4>}
+            product.inventoryQty?<h4>Inventory Remaining: { product.inventoryQty }</h4>:<h4>Currenty Unavailable</h4>}
           { 
             shouldDisplay?<div><button type='submit' >Add To Cart </button></div>:<span/>
           }

@@ -89,7 +89,7 @@ const products = [
         price: 12500,
         inventoryQty: 5,
         origin: 'New York',
-        photo:'snowball_launcher.png'
+        photo:'/snowball_launcher.png'
     },
     {
         title: 'Pre-made snowman',

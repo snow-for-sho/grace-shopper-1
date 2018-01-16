@@ -3,7 +3,8 @@ import axios from 'axios';
 // Action Types
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const UPDATE_PRODUCT_QTY = 'UPDATE_PRODUCT_QTY';
-const ADD_REVIEW_TO_PRODUCT = 'ADD_REVIEW_TO_PRODUCT'
+const ADD_REVIEW_TO_PRODUCT = 'ADD_REVIEW_TO_PRODUCT';
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 
 // Initial State
 
@@ -17,6 +18,14 @@ export const updateProductQty = (prodId, qtyUsed) => {
     type: UPDATE_PRODUCT_QTY,
     prodId, qtyUsed
   }
+}
+export const updateProduct = (id, updateObj, history) => dispatch => {
+  axios.put (`/api/products/${id}`, updateObj)
+  .then (res => res.data)
+  .then (product => {
+    dispatch (fetchProducts())
+    history.push('/admin/products');
+  })
 }
 
 export const addReviewToProduct = review => {
