@@ -4,7 +4,6 @@ import { withRouter, NavLink } from 'react-router-dom';
 export default function Review (props) {
 
   const review = props.review || [];
-  console.log("single review log: ")
   return (
     <li>
       <div>

@@ -6480,7 +6480,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Review(props) {
 
   var review = props.review || [];
-  console.log("single review log: ");
   return _react2.default.createElement(
     'li',
     null,
@@ -13987,7 +13986,7 @@ var LoginSignup = function LoginSignup(props) {
     null,
     _react2.default.createElement(
       'form',
-      { onSubmit: props.handleSubmit, name: 'Login/Signup' },
+      { onSubmit: props.handleSubmit, name: props.action === 'Login' ? 'login' : 'signup' },
       _react2.default.createElement(
         'div',
         null,
@@ -14136,6 +14135,10 @@ var _Review = __webpack_require__(86);
 
 var _Review2 = _interopRequireDefault(_Review);
 
+var _AdminDash = __webpack_require__(448);
+
+var _AdminDash2 = _interopRequireDefault(_AdminDash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14192,6 +14195,11 @@ var Main = function (_Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/cart', component: _CartOrder.Cart }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/trackorder', component: _TrackOrder2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/reviews', component: _ReviewList2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/admin', component: _AdminDash2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/admin/orders', component: _OrderList2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/admin/categories', component: _LoadGrid.LoadCategories }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/admin/products', component: _LoadGrid.LoadProducts }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/admin/reviews', component: _ReviewList2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/products/:id', component: _product2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/categories/:id', component: _LoadGrid.LoadProductsInCategory }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/orders/:id', component: _OrderDetails2.default }),
@@ -14409,6 +14417,7 @@ var _reactRedux = __webpack_require__(4);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Topbar = function Topbar(props) {
+
     return _react2.default.createElement(
         'div',
         { className: 'topbar' },
@@ -14486,10 +14495,15 @@ var Topbar = function Topbar(props) {
                 { to: '/signup' },
                 'Signup'
             ),
-            !props.isLoggedIn ? _react2.default.createElement(
+            props.isLoggedIn ? _react2.default.createElement(
                 _reactRouterDom.Link,
                 { to: '/trackorder' },
                 'Track Order'
+            ) : _react2.default.createElement('span', null),
+            props.isAdmin ? _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/admin' },
+                'Admin Dashboard'
             ) : _react2.default.createElement('span', null)
         )
     );
@@ -14498,6 +14512,7 @@ var Topbar = function Topbar(props) {
 var mapState = function mapState(state) {
     return {
         isLoggedIn: !!state.user.id,
+        isAdmin: state.user.isAdmin,
         cartSize: getCartSize(state.cart)
     };
 };
@@ -14516,9 +14531,9 @@ var mapDispatch = function mapDispatch(dispatch) {
 
 var getCartSize = function getCartSize(cart) {
     var total = 0;
-    console.log("get cart size", cart.items);
+    // console.log("get cart size", cart.items);
     if (cart.items) Object.keys(cart.items).forEach(function (key) {
-        console.log("qty for each", cart.items[key], cart.items[key].quantity);
+        //  console.log("qty for each",cart.items[key], cart.items[key].quantity)
         total += +cart.items[key].quantity;
     });
     return total;
@@ -14813,6 +14828,7 @@ var isLoggedIn = function isLoggedIn() {
 var isLocalCartEmpty = function isLocalCartEmpty() {
     var cart = localStorage.getItem('cart');
     if (cart) {
+        console.log("CART CHECK: ", cart);
         var items = JSON.parse(cart).items;
         console.log('items in local cart', items);
         if (items && Object.keys(items).length) {
@@ -48514,6 +48530,68 @@ function toArray(list, index) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 448 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AdminDash;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(9);
+
+var _reactRedux = __webpack_require__(4);
+
+var _OrderList = __webpack_require__(194);
+
+var _OrderList2 = _interopRequireDefault(_OrderList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function AdminDash(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'h2',
+        null,
+        'Master Lists'
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/admin/orders' },
+        'Orders'
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/admin/categories' },
+        'Categories'
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/admin/products' },
+        'Products'
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/admin/reviews' },
+        'Reviews'
+      )
+    )
+  );
+}
 
 /***/ })
 /******/ ]);
