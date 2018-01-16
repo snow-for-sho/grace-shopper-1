@@ -13,7 +13,7 @@ class OrderList extends Component {
     }
 
     render () {
-        console.log("user id", this.props.user, "orders", this.props.orders);
+        // console.log("user id", this.props.user, "orders", this.props.orders);
         if (this.props.user) {
             return (
                 <div>
@@ -32,8 +32,8 @@ class OrderList extends Component {
             <table className='table table-bordered'>
                 <thead><tr><td align='center'>Order ID</td><td align='center'>Status</td><td align='center'>Date</td></tr></thead>
                 <tbody>
-                {   
-                    this.props.orders.map (order => 
+                {
+                    this.props.orders.map (order =>
                         <tr key={order.id}>
                             <td align='center'><Link to={`/orders/${order.id}`} key={order.id}>{order.id}</Link></td>
                             <td align='center'>{order.status}</td>
