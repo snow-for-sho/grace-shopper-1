@@ -26,9 +26,12 @@ export const addReviewToProduct = review => {
 // Thunk Creators
 export const fetchProducts = (title) => dispatch => {
   const url = title?`/api/products/?title=${title}`:'/api/products'
+  console.log("getting products", url)
   axios.get(url)
+    .then (res=>res.data)
     .then(res => {
-      dispatch(getProducts(res.data));
+      console.log("got products", res)
+      dispatch(getProducts(res));
     })
     .catch(err => console.error(err));
   }

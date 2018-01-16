@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 
 function AddReview (props) {
     const prodId = props.productId;
-    console.log("add review props", props)
     return (
         <form onSubmit={props.addReview}>
             <input type="hidden" name="prodId" value={prodId} />
@@ -24,8 +23,8 @@ function AddReview (props) {
                                 onChange={newRating => props.setStarRating( newRating)}
                         /></td>
                         
-                        <td><input type="text" name="review" size="150" placeholder="Write your review here"/></td>
-                        <td><input type="checkbox" name="recommend"/>Recommend to a friend</td>
+                        <td><input type="text" name="review" size="120" placeholder="Write your review here"/></td>
+                        <td><input type="checkbox" name="recommend" defaultChecked/>Recommend to a friend</td>
                         <td><button type="submit">Add Review </button></td>
                     </tr>
                 </tbody>

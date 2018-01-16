@@ -50,7 +50,22 @@ router.get('/:id', (req, res, next) => {
       },
       include:[{all:true}]
     })
-  } else {
+  } else if (req.query.admin) {
+    User.findById(req.user.id)
+    .then(user => {
+      if (user.isAdmin) {
+       return Orders.findAll({
+          include:[{all:true}]
+        })
+      } else {
+        return null;
+      }
+    })
+    .then (orders => {
+      res.json(order)
+    })
+    .catch (next);
+  }  else {
     order = Order.findOne ({
       where: {
         id: req.params.id,

@@ -5,7 +5,8 @@ export function getOrders (orders) {
     return {type: GET_ORDERS, orders}
 }
 
-export const fetchOrders = () => dispatch => {
+export const fetchOrders = (admin) => dispatch => {
+    const url = admin?'/api/orders/admin=true':'api/orders';
     axios.get(`/api/orders/`)
     .then (res => res.data) 
     .then (orders => {

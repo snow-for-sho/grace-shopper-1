@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import {fetchOrders} from '../store';
 import {connect} from 'react-redux';
 
-class OrderList extends Component {
+class OrderListMain extends Component {
     constructor (props) {
         super (props)
     }
 
     componentDidMount () {
-      //  this.props.loadOrders();
+        if (this.state.admin)
+           this.props.loadOrders(this.state.admin);
     }
 
     render () {
@@ -17,7 +18,7 @@ class OrderList extends Component {
         if (this.props.user) {
             return (
                 <div>
-                    <div> Orders for {this.props.user.name}</div>
+                    <div> Orders for {this.props.user.email}</div>
                     {
                         this.listOrders()
                     }
@@ -52,8 +53,14 @@ const mapState = state => ({
     user: state.user
 })
 
-// const mapDispatch = dispatch => ({
-//     loadOrders: () => dispatch(fetchOrders ())
-// })
+const mapStateAdmin = state=> ({
+    orders:state.orders,
+    user: state.user,
+    admin: true
+})
+ const mapDispatch = dispatch => ({
+     loadOrders: () => dispatch(fetchOrders (true))
+ })
 
-export default connect (mapState)(OrderList);
+export const OrderList = connect (mapState)(OrderListMain);
+export const OrderListAdmin = connect (mapStateAdmin, mapDispatch)(OrderListMain)

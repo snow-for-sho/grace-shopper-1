@@ -12,7 +12,7 @@ class Product extends Component {
   }
 
   componentDidMount () {
-    this.props.loadProduct()
+    //this.props.loadProduct()
   }
 
   render () {
@@ -55,9 +55,12 @@ class Product extends Component {
           }
           </form>
           { 
-            shouldDisplay && this.props.isLoggedIn?<div><AddReview productId={product.id}/><ReviewList selectedProduct={product}/></div>: <span/> 
+            shouldDisplay && this.props.isLoggedIn?<div><AddReview productId={product.id}/></div>: <span/> 
           }
 
+          { 
+            shouldDisplay ?<div><ReviewList selectedProduct={product}/></div>: <span/> 
+          }
 
       </div>
     

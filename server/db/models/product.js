@@ -64,7 +64,8 @@ Product.findByTitle = function (title) {
             title: {
                 [Sequelize.Op.iLike]: `%${title}%`
             }
-        }
+        },
+        include: [{all: true, nested: true}]
     })
 }
 

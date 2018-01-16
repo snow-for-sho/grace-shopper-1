@@ -24,10 +24,15 @@ const Topbar = props => {
                 </div>
             </div>
             <nav>
-                <Link to="/cart">Cart ({props.cartSize})</Link>
-                {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/login">Login</Link>}
-                {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/signup">Signup</Link>}
-                {!props.isLoggedIn?<Link to='/trackorder'>Track Order</Link>:<span/>}
+                <div>
+                    <Link to="/cart">Cart ({props.cartSize})</Link>
+                    {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/login">Login</Link>}
+                    {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/signup">Signup</Link>}
+                    {!props.isLoggedIn?<Link to='/trackorder'>Track Order</Link>:<span/>}
+                    </div>
+                {
+                    props.isLoggedIn?<div>Welcome, {props.user.email}</div>:<span/>
+                }
             </nav>
 
          </div>
@@ -36,7 +41,8 @@ const Topbar = props => {
 
 const mapState = (state) => ({
     isLoggedIn: !!state.user.id,
-    cartSize: getCartSize(state.cart)
+    cartSize: getCartSize(state.cart),
+    user: state.user
 })
 
 const mapDispatch = (dispatch) => ({
