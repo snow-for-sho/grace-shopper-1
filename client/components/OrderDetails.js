@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Order} from './CartOrder';
 import { Link } from 'react-router-dom';
-import {fetchOrder} from '../store';
+import {fetchAdminOrders} from '../store';
 
 class OrderDetails extends Component {
     constructor (props) {
@@ -14,6 +14,13 @@ class OrderDetails extends Component {
         //const orderId = this.props.match.params.id;
         //console.log(orderId, this.props);
         //this.props.loadOrder(orderId);
+        if (this.props.admin) {
+            console.log("THIS IS ADMIN")
+            this.props.loadOrders();
+        }
+           else {
+               console.log("NOT ADMIN");
+           }
     }
 
     render () {
@@ -52,7 +59,7 @@ class OrderDetails extends Component {
                     </table>
                     <div>
                     {
-                        this.props.tracked?<Order trackedOrder={order}/>:<Order id={order.id}/>
+                        this.props.tracked || this.props.admin?<Order trackedOrder={order}/>:<Order id={order.id}/>
                     }
                         </div>
                 </div>
@@ -79,8 +86,23 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
+const mapAdminStateToProps = (state, ownProps) => {
+    console.log('state', state)
+    const stateObj = {
+        order: state.adminOrders.find(order => order.id === +ownProps.match.params.adminOrderId),
+        userId: state.user.id,
+        admin: state.user.isAdmin
+        }
+
+    console.log("state obj",stateObj)
+    return  stateObj;
+
+}
+
 const mapDispatchToProps = dispatch => ({
     //loadOrder: id => dispatch (fetchOrder(id))
+    loadOrders: () => dispatch(fetchAdminOrders ()),
 })
 
-export default connect (mapStateToProps, mapDispatchToProps) (OrderDetails);
+export default connect (mapStateToProps) (OrderDetails);
+export const OrderDetailsAdmin = connect (mapAdminStateToProps, mapDispatchToProps) (OrderDetails);

@@ -9,8 +9,8 @@ import Checkout from './Checkout';
 import { LoadProducts, LoadCategories, LoadProductsInCategory } from './LoadGrid';
 import { logout, fetchProducts, fetchCategories, fetchCart, fetchOrders, fetchUsers} from '../store';
 import Product from './product';
-import OrderDetails from './OrderDetails';
-import OrderList from './OrderList';
+import OrderDetails, {OrderDetailsAdmin} from './OrderDetails';
+import OrderList, {OrderListAdmin} from './OrderList';
 import Account from './Account';
 import TrackOrder from './TrackOrder';
 import ReviewList from './ReviewList';
@@ -54,7 +54,7 @@ class Main extends Component {
                   // admin routes:
                 }
                 <Route exact path="/admin" component={AdminDash} />
-                <Route exact path="/admin/orders" component={OrderList} />
+                <Route exact path="/admin/orders" component={OrderListAdmin} />
                 <Route exact path="/admin/categories" component={LoadCategories} />
                 <Route exact path="/admin/products" component={LoadProducts} />
                 <Route exact path="/admin/users" component={UserList} />
@@ -64,6 +64,7 @@ class Main extends Component {
                 <Route path="/products/:id" component={Product}  />
                 <Route path="/categories/:id" component={LoadProductsInCategory} />
                 <Route path="/orders/:id" component ={OrderDetails} />
+                <Route path="/admin/orders/:adminOrderId" component ={OrderDetailsAdmin} />
                 <Route path="/reviews/:id" component ={Review} />
                 <Redirect to="/" />
             </Switch>
