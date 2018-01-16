@@ -14,7 +14,7 @@ const isLoggedIn = () => store.getState().user.id;
 const isLocalCartEmpty = () => {
     const cart = localStorage.getItem('cart');
     if (cart) {
-        console.log("CART CHECK: ", cart)
+       // console.log("CART CHECK: ", cart)
         const items = JSON.parse(cart).items;
         //console.log('items in local cart', items)
         if (items && Object.keys(items).length) {

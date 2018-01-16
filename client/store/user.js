@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {fetchCart} from './index'
+import {fetchCart, fetchAdminOrders, clearAdminOrders} from './index'
 
 /**
  * ACTION TYPES
@@ -38,6 +38,7 @@ export const me = () =>
       .then(res =>{
         dispatch(getUser(res.data || defaultUser))
         dispatch(fetchCart())
+        if (res.data.isAdmin) dispatch(fetchAdminOrders())
       }) 
       .catch(err => console.log(err))
 
@@ -47,6 +48,7 @@ export const auth = (email, password, method) =>
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(fetchCart())
+        if(res.data.isAdmin) dispatch(fetchAdminOrders())
         history.push('/')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
@@ -58,6 +60,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then(_ => {
         dispatch(removeUser())
+        dispatch(clearAdminOrders())
         history.push('/login')
       })
       .catch(err => console.log(err))

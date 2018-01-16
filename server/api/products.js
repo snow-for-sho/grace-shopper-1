@@ -6,9 +6,12 @@ module.exports = router
 router.get('/', (req, res, next) => {
   const title = req.query.title;
   if (title) {
-    console.log("find by title", title)
+    //console.log("find by title", title)
     Product.findByTitle(title)
-    .then(product => res.json(product))
+    .then(product => {
+      //console.log("Got product", product)
+      res.json(product)
+    })
     .catch(next)
   } else {
     Product.findAll({

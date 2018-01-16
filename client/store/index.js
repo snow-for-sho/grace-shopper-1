@@ -9,9 +9,10 @@ import categories from './categories';
 import orders from './orders';
 import trackedOrder from './trackedOrder'
 import review from './review'
+import adminOrders from './adminOrders'
 //import cartMiddleware from './cartMiddleware';
 
-const reducer = combineReducers({user, cart, products, categories,orders, trackedOrder, review})
+const reducer = combineReducers({user, cart, products, categories,orders, trackedOrder, review, adminOrders})
 const middleware = composeWithDevTools(applyMiddleware(
   //cartMiddleware,
   thunkMiddleware,
@@ -27,3 +28,4 @@ export * from './categories';
 export * from './orders';
 export * from './trackedOrder';
 export * from './review';
+export * from './adminOrders';
