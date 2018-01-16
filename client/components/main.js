@@ -37,7 +37,7 @@ class Main extends Component {
       return (
         <div>
           <Topbar/>
-          <main>
+          <main className="main">
             <Switch>
                 <Route exact path="/" component={LoadCategories} />
                 <Route exact path="/login" render={(props) => <LoginSignup action='Login'/>} />

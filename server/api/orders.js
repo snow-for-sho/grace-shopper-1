@@ -67,7 +67,7 @@ router.get('/:id', (req, res, next) => {
 
 // Create a order
 router.post('/', function (req, res, next) {
-  //console.log("orders.js", req.body, "user id", req.user.id);
+  console.log("orders.js", req.body, "user id", req.user.id);
   //if user is logged in, check to see if he has a cart.
   const userId = req.user;
   let prodsToUpdate;
@@ -76,10 +76,14 @@ router.post('/', function (req, res, next) {
     mainOrder = Order.findOrCreate({where:{userId:userId.id, status:'IN_CART'}}).then(order=>order[0]);
     prodsToUpdate = mainOrder
     .then(order => {
-      req.body.recipientInfo[status] = 'CREATED'
-      order.update(req.body.recipientInfo)
+      console.log(req.body.recipientInfo)
+      req.body.recipientInfo['status'] = 'CREATED'
+      return order.update(req.body.recipientInfo)
     })
-    .then(order=>order.getLineItems())
+    .then(order=> {
+      console.log("order", order)
+      return order.getLineItems()
+    })
   }
   else {
     mainOrder = Order.create(req.body.recipientInfo);

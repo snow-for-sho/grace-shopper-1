@@ -9,7 +9,7 @@ export const fetchOrders = () => dispatch => {
     axios.get(`/api/orders/`)
     .then (res => res.data) 
     .then (orders => {
-        console.log("got orders", orders);
+        //console.log("got orders", orders);
         dispatch(getOrders(orders))
     })
     .catch (console.log);

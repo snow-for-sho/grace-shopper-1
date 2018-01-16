@@ -16,7 +16,7 @@ const isLocalCartEmpty = () => {
     if (cart) {
         console.log("CART CHECK: ", cart)
         const items = JSON.parse(cart).items;
-        console.log('items in local cart', items)
+        //console.log('items in local cart', items)
         if (items && Object.keys(items).length) {
             return false;
         }
@@ -25,11 +25,11 @@ const isLocalCartEmpty = () => {
 }
 
 export const fetchCart = () => dispatch => {
-    console.log("FETCHING CART");
+    //console.log("FETCHING CART");
     // localStorage.removeItem('cart');
     let cart;
     if (isLoggedIn() && isLocalCartEmpty()) {
-        console.log("getting saved cart")
+        //console.log("getting saved cart")
         axios.get('/api/orders/?status=IN_CART')
         .then(res => res.data)
         .then (res => {
@@ -38,7 +38,7 @@ export const fetchCart = () => dispatch => {
             if (res) res.lineItems.forEach (lineItem => {
                 cart['items'][lineItem.product.id] = lineItem
             });
-            console.log("set cart to", res, cart);
+            //console.log("set cart to", res, cart);
             localStorage.setItem('cart', JSON.stringify(cart));
             dispatch(getCart (cart))
         } )
@@ -46,16 +46,16 @@ export const fetchCart = () => dispatch => {
     }
     else {
 
-        console.log("getting cart")
+        //console.log("getting cart")
         let cart;
         //console.log(cart)
         if (isLocalCartEmpty()) {
-            console.log("cart is empty")
+           // console.log("cart is empty")
             cart = initCart;
             localStorage.setItem('cart', JSON.stringify(cart));
         } else
             cart = JSON.parse(localStorage.getItem('cart'));
-        console.log("fetched cart",cart);
+        //console.log("fetched cart",cart);
         dispatch(getCart (cart));
 
     }
@@ -64,11 +64,11 @@ export const fetchCart = () => dispatch => {
 
 export const submitCart = (recipientInfo, history) => dispatch => {
     let cart = JSON.parse(localStorage.getItem('cart'));
-    console.log("recipientInfo", recipientInfo, "cart", cart)
+   // console.log("recipientInfo", recipientInfo, "cart", cart)
     axios.post('/api/orders', {cart, recipientInfo})
     .then(res => res.data)
     .then(res => {
-        console.log("ORDER PLACED");
+       // console.log("ORDER PLACED");
         //show Order
         //set cart to empty
         cart = initCart;
@@ -83,7 +83,7 @@ export const submitCart = (recipientInfo, history) => dispatch => {
 
 export const addToCart = (lineItem) => dispatch => {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    console.log("Current Cart is", cart);
+    //console.log("Current Cart is", cart);
     const id = lineItem.product.id;
     if (cart.items[id]) {
         //console.log("cart found for id", cart[id]);
@@ -113,17 +113,17 @@ const notifyCartChange = (dispatch, cart, prodId, diff) => {
 export const updateCart = (prodId, qty) => dispatch => {
     const cart = JSON.parse(localStorage.getItem('cart'));
 
-    console.log("UPDATING CART", cart, prodId, qty)
+    //console.log("UPDATING CART", cart, prodId, qty)
     const diff = cart.items[prodId].quantity - qty;
     cart.items[prodId].quantity = +qty;
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(cart);
+    //console.log(cart);
 
     if(isLoggedIn()) {
         axios.put(`/api/orders/${cart.id}`, cart.items)
         .then(res => res.data)
         .then (res => {
-            console.log("updated cart", res);
+          //  console.log("updated cart", res);
             notifyCartChange(dispatch, cart, prodId, diff)
         });
     } else notifyCartChange(dispatch, cart, prodId, diff)

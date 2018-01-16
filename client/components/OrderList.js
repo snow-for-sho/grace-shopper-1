@@ -36,8 +36,8 @@ class OrderList extends Component {
                     this.props.orders.map (order => 
                         <tr key={order.id}>
                             <td align='center'><Link to={`/orders/${order.id}`} key={order.id}>{order.id}</Link></td>
-                            <td align='center'>{order.createdAt}</td>
                             <td align='center'>{order.status}</td>
+                            <td align='center'>{order.createdAt}</td>
                         </tr>
                     )
                 }
