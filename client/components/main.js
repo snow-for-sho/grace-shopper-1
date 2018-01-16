@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {withRouter, Link, Switch, Route, Redirect} from 'react-router-dom';
-import {logout} from '../store';
+import { connect } from 'react-redux';
+import { withRouter, Link, Switch, Route, Redirect } from 'react-router-dom';
 import Topbar from './Topbar';
-import {Order, Cart} from './CartOrder';
+import { Order, Cart } from './CartOrder';
 import LoginSignup from './LoginSignup';
 import Checkout from './Checkout';
-import {LoadProducts, LoadCategories, LoadProductsInCategory} from './LoadGrid';
-import {fetchProducts, fetchCategories, fetchCart, fetchOrders} from '../store';
+import { LoadProducts, LoadCategories, LoadProductsInCategory } from './LoadGrid';
+import { logout, fetchProducts, fetchCategories, fetchCart, fetchOrders, fetchUsers} from '../store';
 import Product from './product';
 import OrderDetails, {OrderDetailsAdmin} from './OrderDetails';
 import OrderList, {OrderListAdmin} from './OrderList';
@@ -19,6 +18,7 @@ import Review from './Review';
 import AdminDash from './AdminDash';
 import AdminProductList from './AdminProductList';
 import AdminEditProduct from './AdminEditProduct';
+import UserList from './UserList';
 
 /**
  * COMPONENT
@@ -60,7 +60,7 @@ class Main extends Component {
                 <Route exact path="/admin/categories" component={LoadCategories} />
                 <Route exact path="/admin/products" component={AdminProductList} />
                 <Route path="/admin/products/:id" component={AdminEditProduct} />
-                <Route exact path="/admin/users" component={ReviewList} />
+                <Route exact path="/admin/users" component={UserList} />
                 {
                  // ___________________
                 }
@@ -96,6 +96,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchCategories())
       dispatch(fetchCart())
       dispatch(fetchOrders())
+      dispatch(fetchUsers())
     }
   }
 }

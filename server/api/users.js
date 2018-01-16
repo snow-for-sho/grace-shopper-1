@@ -4,18 +4,28 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-    attributes: ['id', 'email', 'address', 'phone', 'firstName', 'lastName']
+    attributes: ['id', 'email', 'address', 'phone', 'firstName', 'lastName', 'isAdmin']
   })
     .then(users => res.json(users))
     .catch(next)
 })
 
 router.put('/', (req, res, next) => {
-  User.findById(+req.user.id)
-  .then (user => user.update(req.body))
-  .then(user=>res.json(user))
+  if (!req.body.id) res.sendStatus(404)
+  User.findById(+req.body.id)
+  .then(user => user.update({
+    isAdmin: 'TRUE'
+  }))
+  .then(user => {
+    res.json(user)
+  })
   .catch(next)
 })
+
+router.delete('/:id', function (req, res, next) {
+  const id = req.params.id;
+
+  User.destroy({ where: { id } })
+    .then(() => res.status(204).end())
+    .catch(next);
+});

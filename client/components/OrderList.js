@@ -23,14 +23,14 @@ class OrderListMain extends Component {
         //console.log("user id", this.props.user, "orders", this.props.orders);
         if (this.props.user) {
             return (
-                
+
                     <div>
                             <div> Orders for {this.props.admin?'ADMIN':this.props.user.email}</div>
                             {
                                 this.listOrders()
                             }
                     </div>
-                
+
             );
         } else return <div>Must have an account to view orders</div>;
     }
@@ -41,11 +41,11 @@ class OrderListMain extends Component {
         if (!this.props.orders.length) return <div>No orders found for status: {this.state.status}</div>
         return (
             <table className='table table-bordered'>
-            
+
                 <thead><tr><td align='center'>Order ID</td><td align='center'>Status {this.getFilterForm()}</td><td align='center'>Date</td></tr></thead>
                 <tbody>
-                {   
-                    orders.map (order => 
+                {
+                    orders.map (order =>
                         <tr key={order.id}>
                             <td align='center'>{this.props.admin?<Link to={`/admin/orders/${order.id}`} key={order.id}>{order.id}</Link>:<Link to={`/orders/${order.id}`} key={order.id}>{order.id}</Link>}</td>
                             <td align='center'>{this.props.admin?this.getSelectForm(order.id, order.status):order.status}</td>
@@ -55,7 +55,7 @@ class OrderListMain extends Component {
                 }
                 <tr></tr>
                 </tbody>
-           
+
             </table>
         )
     }
@@ -71,7 +71,7 @@ class OrderListMain extends Component {
     }
 
     getFilterForm () {
-       
+
         return  <select onChange={this.handleStatusChange} value={this.state.status}>
         <option value={status} key="all">ALL</option>
         {
@@ -115,7 +115,7 @@ const mapStateAdmin = state=> ({
          e.preventDefault();
          dispatch(updateOrderStatus(e.target.orderId.value, e.target.status.value));
      },
-     
+
  })
 
 export default connect (mapState)(OrderListMain);
