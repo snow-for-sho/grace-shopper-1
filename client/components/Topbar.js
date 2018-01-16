@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {logout} from '../store';
 import {connect} from 'react-redux';
-import {fetchProducts} from '../store'
+import {fetchProducts} from '../store';
 
 const Topbar = props => {
+
     return (
          <div className='topbar'>
              <nav>
@@ -24,14 +25,19 @@ const Topbar = props => {
                 </div>
             </div>
             <nav>
-                <div>
-                    <Link to="/cart">Cart ({props.cartSize})</Link>
-                    {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/login">Login</Link>}
-                    {props.isLoggedIn?<Link to="/account">Account</Link>:<Link to="/signup">Signup</Link>}
-                    {!props.isLoggedIn?<Link to='/trackorder'>Track Order</Link>:<span/>}
-                    </div>
+                <Link to="/cart">Cart ({props.cartSize})</Link>
                 {
-                    props.isLoggedIn?<div>Welcome, {props.user.email}</div>:<span/>
+                  props.isLoggedIn ? <a onClick={props.handleLogout}>Logout</a> : <Link to="/login">Login</Link>
+                }
+                {
+                  props.isLoggedIn ? <Link to="/account">Account</Link> : <Link to="/signup">Signup</Link>
+                }
+                {
+                  props.isLoggedIn ? <Link to="/trackorder">Track Order</Link> : <span />
+                }
+                {
+
+                  props.isAdmin ? <Link to="/admin">Admin Dashboard</Link> : <span />
                 }
             </nav>
 
@@ -41,8 +47,8 @@ const Topbar = props => {
 
 const mapState = (state) => ({
     isLoggedIn: !!state.user.id,
-    cartSize: getCartSize(state.cart),
-    user: state.user
+    isAdmin: state.user.isAdmin,
+    cartSize: getCartSize(state.cart)
 })
 
 const mapDispatch = (dispatch) => ({
@@ -55,10 +61,10 @@ const mapDispatch = (dispatch) => ({
 
 const getCartSize = cart => {
     let total = 0;
-    //console.log("get cart size", cart.items);
+    // console.log("get cart size", cart.items);
     if (cart.items)
         Object.keys(cart.items).forEach (key => {
-         //console.log("qty for each",cart.items[key], cart.items[key].quantity)
+        //  console.log("qty for each",cart.items[key], cart.items[key].quantity)
             total += +(cart.items[key].quantity);
         });
     return total;

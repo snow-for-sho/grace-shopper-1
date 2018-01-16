@@ -6,7 +6,6 @@ import ReactStars from 'react-stars'
 export default function Review (props) {
 
   const review = props.review || [];
-  console.log("single review log: ", review.recommendation)
   return (
       <div>
         <h4>Headline: { review.headline }</h4>
@@ -22,6 +21,6 @@ const renderStarRating = rating => (
   count={5}
   size={17}
   edit={false}
-  color2={'#ffd700'} 
+  color2={'#ffd700'}
   value={rating}/>
 )
