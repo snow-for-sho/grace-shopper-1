@@ -19,8 +19,8 @@ export const updateProductQty = (prodId, qtyUsed) => {
     prodId, qtyUsed
   }
 }
-export const updateProduct = (id, updateObj, history) => dispatch => {
-  axios.put (`/api/products/${id}`, updateObj)
+export const updateProduct = (updateObj, history) => dispatch => {
+  axios.put (`/api/products/${updateObj.id}`, updateObj)
   .then (res => res.data)
   .then (product => {
     dispatch (fetchProducts())

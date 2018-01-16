@@ -22,6 +22,15 @@ class AdminProductList extends Component {
         return (
             <tbody>
                 <tr><td colSpan="7">Products - <Link to="/admin/products/add"><span>Add product</span></Link></td></tr>
+                <tr> 
+                            <td align="center">Product Id</td>
+                            <td align="center">Edit/Delete</td>
+                            <td align="center">Image</td>
+                            <td align="center">Title</td>
+                            <td align="center">Description</td>
+                            <td align="center">Inventory Quantity</td>
+                            <td align="center">Categories</td>
+                        </tr>
                 {
                     this.props.products.map( (product, i) => 
                         <tr key={i}> 
