@@ -43,11 +43,21 @@ const users = [
 ];
 
 const categories = [
-    { title: 'Powdered'},
-    { title: 'Wet'},
-    { title: 'Kits'},
-    { title: 'Accessories'},
-    { title: 'Kings of the North'}
+    { title: 'Powdered',
+      photo: '/powder.jpg'
+    },
+    { title: 'Wet',
+      photo: '/wet.jpg'
+    },
+    { title: 'Kits',
+      photo: '/kit.jpg'
+    },
+    { title: 'Accessories',
+      photo: '/accessories.jpg'
+    },
+    { title: 'Kings of the North',
+      photo: '/snowkings.jpg'
+    }
 ];
 
 const products = [
