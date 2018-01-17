@@ -28,4 +28,4 @@ process.env.FB_CALLBACK = '/auth/facebook/callback'
 https://snow-fo-sho.herokuapp.com
 
 # Our github repo - contributors welcome!
-https://github.com/snow-for-sho
+https://github.com/snow-for-sho/grace-shopper-1
