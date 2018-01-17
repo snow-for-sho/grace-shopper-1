@@ -39,7 +39,7 @@ class Product extends Component {
           <form onSubmit={this.props.addToCart}>
             <input type='hidden' name='id' value={product.id} />
             <NavLink to={`/products/${product.id}`}>
-              <img src={product.photo} alt="image" width="100" height="100"/>
+              <img src={product.photo} alt="image" width="350" height="350"/>
               <h2>{ product.title }</h2>
             </NavLink>
 
