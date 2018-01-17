@@ -5,7 +5,7 @@ const Category = require ('./category');
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.ENUM('IN_CART','CREATED', 'PROCESSING', 'SHIPPED', 'COMPLETED'),
+    type: Sequelize.ENUM('IN_CART','CREATED', 'PROCESSING', 'SHIPPED', 'COMPLETED', 'CANCELLED'),
     defaultValue: 'CREATED',
     allowNull: false
   },

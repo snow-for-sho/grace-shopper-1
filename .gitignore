@@ -2,5 +2,5 @@ node_modules
 secrets
 seed.js
 snow-for-show-contract.pages
-./public/bundle.js
+public/bundle.js
 public/bundle.js.map
