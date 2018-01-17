@@ -21,6 +21,7 @@ const Topbar = props => {
         <Link className="navbar-brand" to="/">
          Snow Fo Sho
         </Link>
+
       </div>
 
       <div className="collapse navbar-collapse">
@@ -40,6 +41,11 @@ const Topbar = props => {
           </form>
         </ul>
         <ul className="nav navbar-nav navbar-right">
+          <li>
+            <Link to="/products">Products
+              <i className="material-icons">apps</i>
+            </Link>
+          </li>
           <li> 
             {props.isLoggedIn?<a onClick={props.handleLogout}>Logout</a>:<Link to="/login">Login
               <i className="material-icons">apps</i>  
