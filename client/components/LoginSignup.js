@@ -9,7 +9,6 @@ import {auth} from '../store'
 const LoginSignup = (props) => {
 
   return (
-<<<<<<< HEAD
     <div 
       className="page-header header-filter" 
       style={{backgroundImage: "url('/assets/img/snowbackground.jpg')", 
@@ -58,25 +57,6 @@ const LoginSignup = (props) => {
 			</div>
 		</div>
   </div>
-=======
-    <div>
-      <form onSubmit={props.handleSubmit} name={props.action === 'Login' ? 'login' : 'signup'}>
-        <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{props.action==='Login'?'Login':'Signup'}</button>
-        </div>
-      </form>
-      <a href="/auth/google">Use  Google</a> &nbsp;&nbsp;
-      <a href="/auth/facebook">Use Facebook </a>
-    </div>
->>>>>>> master
   )
 }
 //     <div>

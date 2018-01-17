@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {fetchProducts} from '../store';
 
 const Topbar = props => {
-<<<<<<< HEAD
   return (
     <nav
     className="navbar navbar-default navbar-transparent navbar-color-on-scroll"
@@ -23,43 +22,6 @@ const Topbar = props => {
          Snow Fo Sho
         </Link>
       </div>
-=======
-
-    return (
-         <div className='topbar'>
-             <nav>
-                 <Link to="/">Home</Link>
-                 <Link to="/categories">Categories</Link>
-                 <Link to="/products">Products</Link>
-             </nav>
-            <div>
-                <div><h3>Snow Fo Sho</h3></div>
-                <div>
-                <form onSubmit={props.submitSearch}>
-                    <input type='text' name='search' placeholder='search...'/>
-                    <button name='submit'>
-                        <i id='search' className="fa fa-search"></i>
-                    </button>
-                </form>
-                </div>
-            </div>
-            <nav>
-                <Link to="/cart">Cart ({props.cartSize})</Link>
-                {
-                  props.isLoggedIn ? <a onClick={props.handleLogout}>Logout</a> : <Link to="/login">Login</Link>
-                }
-                {
-                  props.isLoggedIn ? <Link to="/account">Account</Link> : <Link to="/signup">Signup</Link>
-                }
-                {
-                  props.isLoggedIn ? <Link to="/trackorder">Track Order</Link> : <span />
-                }
-                {
-
-                  props.isAdmin ? <Link to="/admin">Admin Dashboard</Link> : <span />
-                }
-            </nav>
->>>>>>> master
 
       <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-center">
@@ -93,6 +55,11 @@ const Topbar = props => {
           <li> 
            {!props.isLoggedIn?<Link to='/trackorder'>Track Order</Link>:<span/>}
           </li>
+          <li>
+          {props.isAdmin ? <Link to="/admin">Admin Dashboard</Link> : <span />}
+          </li>
+
+
           <Link to={'/cart'}>
             <button className="btn btn-white pull-right"><i className="material-icons">shopping_cart</i>Cart ({props.cartSize})
             </button>
@@ -120,17 +87,10 @@ const mapDispatch = (dispatch) => ({
 
 const getCartSize = cart => {
     let total = 0;
-<<<<<<< HEAD
     //console.log("get cart size", cart.items);
     if (cart.items)
         Object.keys(cart.items).forEach (key => {
          //console.log("qty for each",cart.items[key], cart.items[key].quantity)
-=======
-    // console.log("get cart size", cart.items);
-    if (cart.items)
-        Object.keys(cart.items).forEach (key => {
-        //  console.log("qty for each",cart.items[key], cart.items[key].quantity)
->>>>>>> master
             total += +(cart.items[key].quantity);
         });
     return total;
