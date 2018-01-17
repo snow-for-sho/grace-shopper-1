@@ -46,7 +46,9 @@ const LoginSignup = (props) => {
 									</span>
 									<input type="password" placeholder="Password..." name="password" className="form-control" />
 								</div>
-
+								{
+									props.user.error?<p className="description text-center">{props.user.error.response.data}</p>:<span/>
+								}
 							</div>
 							<div className="footer text-center" style={{display: "block"}}>
 								<button type="submit" className="btn btn-default">Get Started</button>
@@ -86,7 +88,9 @@ const LoginSignup = (props) => {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapState = (state) => ({})
+const mapState = (state) => ({
+	user: state.user
+})
 
 const mapDispatch = (dispatch) => {
   return {
