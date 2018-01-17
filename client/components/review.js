@@ -9,11 +9,11 @@ export default function Review (props) {
     <li>
       <div>
         <NavLink to={`/reviews/${review.id}`}>
-          <h2>Headline: { review.headline }</h2>
+          <h5>Headline: { review.headline }</h5>
         </NavLink>
-        <h4>{ review.reviewText }</h4>
-        <h4>Stars: { review.numberOfStars }</h4>
-        <h4>Recommend? { review.recommendation }</h4>
+        <p>{ review.reviewText }</p>
+        <h6>Stars: { review.numberOfStars }</h6>
+        <h6>Recommend? { review.recommendation }</h6>
       </div>
     </li>
   );

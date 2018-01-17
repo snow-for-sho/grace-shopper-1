@@ -34,7 +34,7 @@ class CartOrder extends Component {
         let totalPrice = 0, totalQty = 0;
 
         if (prodIds.length)
-            return (
+            return ( 
                 <div>
                     <table className="table table-bordered">
                         <thead>

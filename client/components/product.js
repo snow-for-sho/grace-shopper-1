@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux';
 import {addToCart} from '../store';
 import ReviewList from './ReviewList'
+import { Link } from 'react-router-dom';
 
 function Product (props) {
   //console.log('props', props.products)
@@ -25,25 +26,37 @@ function Product (props) {
 
   return (
     <form onSubmit={props.addToCart}>
+    {console.log(product.photo)}
   
-      <div>
+      <div 
+        className="card card-raised card-background" 
+        style={{ backgroundImage: `url(${product.photo})`, height: '400px', width: '400px' }}>
+      
+        <div className="card-content">
       {
         // Shows image to display for grid link
       }
         <input type='hidden' name='id' value={product.id} />
-        <NavLink to={`/products/${product.id}`}>
-          <img src={product.photo} alt="image" width="100" height="100"/>
+        <Link to={`/products/${product.id}`}>
+          {
+            // <img src={product.photo} alt="image" width="100" height="100"/>
+          }
           <h2>{ product.title }</h2>
-        </NavLink>
-        <h4>Description: { product.description }</h4>
-        <h4>Price: { product.price/100 }</h4>
+        </Link>
+        <p className="card-description">
+          Description: { product.description < 50 ? product.description : product.description.slice(0,50) + '...'}
+        </p>
+        <h6>Price: { product.price/100 }</h6>
         {shouldDisplay?getSelect ("qty", product.inventoryQty):
-        <h4>Inventory Remaining: { product.inventoryQty }</h4>}
+        <h6>Inventory Remaining: { product.inventoryQty }</h6>}
         {
-          !shouldDisplay ?  <h4>See {product.reviews.length} Reviews</h4> :<ReviewList selectedProduct={product}/>
+          !shouldDisplay ?  <h6>See {product.reviews.length} Reviews</h6> :<ReviewList selectedProduct={product}/>
         }
-       
-
+        {
+      //  <Link className ="btn btn-primary btn-round" to={`/products/${product.id}`}>
+      //    View Snow Item
+      //  </Link>
+        }
        { //<div>
         //  <label htmlFor="size">Product Size</label>
            // react-redux-forms scaffolding for choosing a size
@@ -72,6 +85,7 @@ function Product (props) {
           
        // </div>
        }
+        </div>
       </div>
       {
         // how to get access to the reviews for a given product?
@@ -79,7 +93,7 @@ function Product (props) {
       }
     { 
       singleProduct && product.inventoryQty?
-          <button type='submit' >Add To Cart </button>
+          <button type='submit' class="btn btn-primary btn-raised">Add To Cart </button>
           : <span/>
       //  <Review product={product} /> 
      

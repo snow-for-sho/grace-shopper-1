@@ -6491,25 +6491,25 @@ function Review(props) {
         _reactRouterDom.NavLink,
         { to: '/reviews/' + review.id },
         _react2.default.createElement(
-          'h2',
+          'h5',
           null,
           'Headline: ',
           review.headline
         )
       ),
       _react2.default.createElement(
-        'h4',
+        'p',
         null,
         review.reviewText
       ),
       _react2.default.createElement(
-        'h4',
+        'h6',
         null,
         'Stars: ',
         review.numberOfStars
       ),
       _react2.default.createElement(
-        'h4',
+        'h6',
         null,
         'Recommend? ',
         review.recommendation
@@ -6661,49 +6661,55 @@ function Product(props) {
   return _react2.default.createElement(
     'form',
     { onSubmit: props.addToCart },
+    console.log(product.photo),
     _react2.default.createElement(
       'div',
-      null,
-      _react2.default.createElement('input', { type: 'hidden', name: 'id', value: product.id }),
+      {
+        className: 'card card-raised card-background',
+        style: { backgroundImage: 'url(' + product.photo + ')', height: '400px', width: '400px' } },
       _react2.default.createElement(
-        _reactRouterDom.NavLink,
-        { to: '/products/' + product.id },
-        _react2.default.createElement('img', { src: product.photo, alt: 'image', width: '100', height: '100' }),
+        'div',
+        { className: 'card-content' },
+        _react2.default.createElement('input', { type: 'hidden', name: 'id', value: product.id }),
         _react2.default.createElement(
-          'h2',
+          _reactRouterDom.Link,
+          { to: '/products/' + product.id },
+          _react2.default.createElement(
+            'h2',
+            null,
+            product.title
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'card-description' },
+          'Description: ',
+          product.description < 50 ? product.description : product.description.slice(0, 50) + '...'
+        ),
+        _react2.default.createElement(
+          'h6',
           null,
-          product.title
-        )
-      ),
-      _react2.default.createElement(
-        'h4',
-        null,
-        'Description: ',
-        product.description
-      ),
-      _react2.default.createElement(
-        'h4',
-        null,
-        'Price: ',
-        product.price / 100
-      ),
-      shouldDisplay ? getSelect("qty", product.inventoryQty) : _react2.default.createElement(
-        'h4',
-        null,
-        'Inventory Remaining: ',
-        product.inventoryQty
-      ),
-      !shouldDisplay ? _react2.default.createElement(
-        'h4',
-        null,
-        'See ',
-        product.reviews.length,
-        ' Reviews'
-      ) : _react2.default.createElement(_ReviewList2.default, { selectedProduct: product })
+          'Price: ',
+          product.price / 100
+        ),
+        shouldDisplay ? getSelect("qty", product.inventoryQty) : _react2.default.createElement(
+          'h6',
+          null,
+          'Inventory Remaining: ',
+          product.inventoryQty
+        ),
+        !shouldDisplay ? _react2.default.createElement(
+          'h6',
+          null,
+          'See ',
+          product.reviews.length,
+          ' Reviews'
+        ) : _react2.default.createElement(_ReviewList2.default, { selectedProduct: product })
+      )
     ),
     singleProduct && product.inventoryQty ? _react2.default.createElement(
       'button',
-      { type: 'submit' },
+      { type: 'submit', 'class': 'btn btn-primary btn-raised' },
       'Add To Cart '
     ) : _react2.default.createElement('span', null)
     //  <Review product={product} /> 
@@ -13737,20 +13743,31 @@ function Category(props) {
   var category = props.category || [];
 
   return _react2.default.createElement(
-    'li',
+    'div',
     null,
     _react2.default.createElement('div', null),
     _react2.default.createElement(
       'div',
-      null,
+      {
+        className: 'card card-raised card-background',
+        style: { backgroundImage: 'url(' + category.photo + ')', height: '400px', width: '400px' }
+      },
       _react2.default.createElement(
-        _reactRouterDom.NavLink,
-        { to: '/categories/' + category.id },
-        _react2.default.createElement('img', { src: category.photo, width: '100', height: '100' }),
+        'div',
+        { className: 'card-content' },
         _react2.default.createElement(
-          'h2',
-          null,
-          category.title
+          _reactRouterDom.Link,
+          { to: '/categories/' + category.id },
+          _react2.default.createElement(
+            'h3',
+            { className: 'card-title' },
+            category.title
+          )
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'btn btn-primary btn-raised', to: '/categories/' + category.id },
+          'View All'
         )
       )
     )
@@ -13960,7 +13977,7 @@ var LoadProductsInCategory = exports.LoadProductsInCategory = (0, _reactRedux.co
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(0);
@@ -13982,63 +13999,118 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 var LoginSignup = function LoginSignup(props) {
 
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'form',
-      { onSubmit: props.handleSubmit, name: 'Login/Signup' },
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'label',
-          { htmlFor: 'email' },
-          _react2.default.createElement(
-            'small',
-            null,
-            'Email'
-          )
-        ),
-        _react2.default.createElement('input', { name: 'email', type: 'text' })
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'label',
-          { htmlFor: 'password' },
-          _react2.default.createElement(
-            'small',
-            null,
-            'Password'
-          )
-        ),
-        _react2.default.createElement('input', { name: 'password', type: 'password' })
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'button',
-          { type: 'submit' },
-          props.action === 'Login' ? 'Login' : 'Signup'
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'a',
-      { href: '/auth/google' },
-      'Use  Google'
-    ),
-    ' \xA0\xA0',
-    _react2.default.createElement(
-      'a',
-      { href: '/auth/facebook' },
-      'Use Facebook '
-    )
-  );
+	return _react2.default.createElement(
+		'div',
+		{
+			className: 'page-header header-filter',
+			style: { backgroundImage: "url('/assets/img/snowbackground.jpg')",
+				backgroundSize: 'cover',
+				backgroundPosition: 'top center' } },
+		_react2.default.createElement(
+			'div',
+			{ className: 'container' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'card card-signup' },
+						_react2.default.createElement(
+							'form',
+							{ className: 'form', onSubmit: props.handleSubmit, name: props.action === 'Login' ? 'login' : 'signup' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'header header-primary text-center', style: { display: "block" } },
+								_react2.default.createElement(
+									'div',
+									{ className: 'social-line' },
+									_react2.default.createElement(
+										'a',
+										{ href: 'auth/facebook', className: 'btn btn-just-icon btn-simple' },
+										_react2.default.createElement('i', { className: 'fa fa-facebook-square' })
+									),
+									_react2.default.createElement(
+										'a',
+										{ href: '/auth/google', className: 'btn btn-just-icon btn-simple' },
+										_react2.default.createElement('i', { className: 'fa fa-google-plus' })
+									)
+								)
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'description text-center' },
+								'Or'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'content' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'input-group' },
+									_react2.default.createElement(
+										'span',
+										{ className: 'input-group-addon' },
+										_react2.default.createElement(
+											'i',
+											{ className: 'material-icons' },
+											'email'
+										)
+									),
+									_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'email', placeholder: 'Email...' })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'input-group' },
+									_react2.default.createElement(
+										'span',
+										{ className: 'input-group-addon' },
+										_react2.default.createElement(
+											'i',
+											{ className: 'material-icons' },
+											'lock_outline'
+										)
+									),
+									_react2.default.createElement('input', { type: 'password', placeholder: 'Password...', name: 'password', className: 'form-control' })
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'footer text-center', style: { display: "block" } },
+								_react2.default.createElement(
+									'button',
+									{ type: 'submit', className: 'btn btn-default' },
+									'Get Started'
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	);
 };
+//     <div>
+//       <form onSubmit={props.handleSubmit} name='Login/Signup'>
+//         <div>
+//           <label htmlFor="email"><small>Email</small></label>
+//           <input name="email" type="text" />
+//         </div>
+//         <div>
+//           <label htmlFor="password"><small>Password</small></label>
+//           <input name="password" type="password" />
+//         </div>
+//         <div>
+//           <button type="submit">{props.action==='Login'?'Login':'Signup'}</button>
+//         </div>
+//       </form>
+//       <a href="/auth/google">Use  Google</a> &nbsp;&nbsp;
+//       <a href="/auth/facebook">Use Facebook </a>
+//     </div>
+//   )
+// }
 
 /**
  * CONTAINER
@@ -14048,19 +14120,19 @@ var LoginSignup = function LoginSignup(props) {
  *   can stay DRY with interfaces that are very similar to each other!
  */
 var mapState = function mapState(state) {
-  return {};
+	return {};
 };
 
 var mapDispatch = function mapDispatch(dispatch) {
-  return {
-    handleSubmit: function handleSubmit(evt) {
-      evt.preventDefault();
-      var formName = evt.target.name;
-      var email = evt.target.email.value;
-      var password = evt.target.password.value;
-      dispatch((0, _store.auth)(email, password, formName));
-    }
-  };
+	return {
+		handleSubmit: function handleSubmit(evt) {
+			evt.preventDefault();
+			var formName = evt.target.name;
+			var email = evt.target.email.value;
+			var password = evt.target.password.value;
+			dispatch((0, _store.auth)(email, password, formName));
+		}
+	};
 };
 
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(LoginSignup);
@@ -14387,9 +14459,196 @@ exports.default = (0, _reactRedux.connect)(mapState)(OrderList);
 
 /***/ }),
 /* 195 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token, expected } (63:16)\n\n\u001b[0m \u001b[90m 61 | \u001b[39m}\n \u001b[90m 62 | \u001b[39m\u001b[36mconst\u001b[39m mapDispatch \u001b[33m=\u001b[39m (dispatch) \u001b[33m=>\u001b[39m ({\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 63 | \u001b[39m    handleLogout\u001b[33m:\u001b[39m ()\u001b[33m=>\u001b[39mdispatch(logout())\u001b[33m,\u001b[39m\n \u001b[90m    | \u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 64 | \u001b[39m    submitSearch\u001b[33m:\u001b[39m (e) \u001b[33m=>\u001b[39m {\n \u001b[90m 65 | \u001b[39m        e\u001b[33m.\u001b[39mpreventDefault()\n \u001b[90m 66 | \u001b[39m        dispatch(fetchProducts(e\u001b[33m.\u001b[39mtarget\u001b[33m.\u001b[39msearch\u001b[33m.\u001b[39mvalue))\u001b[0m\n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(9);
+
+var _store = __webpack_require__(8);
+
+var _reactRedux = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Topbar = function Topbar(props) {
+  return _react2.default.createElement(
+    'nav',
+    {
+      className: 'navbar navbar-default navbar-transparent navbar-color-on-scroll',
+      id: 'sectionsNav'
+    },
+    _react2.default.createElement(
+      'div',
+      { className: 'container' },
+      _react2.default.createElement(
+        'div',
+        { className: 'navbar-header' },
+        _react2.default.createElement(
+          'button',
+          { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse' },
+          _react2.default.createElement(
+            'span',
+            { className: 'sr-only' },
+            'Toggle navigation'
+          ),
+          _react2.default.createElement('span', { className: 'icon-bar' }),
+          _react2.default.createElement('span', { className: 'icon-bar' }),
+          _react2.default.createElement('span', { className: 'icon-bar' })
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'navbar-brand', to: '/' },
+          'Snow Fo Sho'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'collapse navbar-collapse' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'nav navbar-nav navbar-center' },
+          _react2.default.createElement(
+            'form',
+            { onSubmit: props.submitSearch },
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group label-floating' },
+              _react2.default.createElement(
+                'label',
+                { className: 'control-label' },
+                'search...'
+              ),
+              _react2.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' })
+            ),
+            _react2.default.createElement(
+              'button',
+              {
+                name: 'submit',
+                className: 'btn btn-white btn-raised btn-fab btn-fab-mini' },
+              _react2.default.createElement(
+                'i',
+                {
+                  id: 'search',
+                  className: 'material-icons' },
+                'search'
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'nav navbar-nav navbar-right' },
+          _react2.default.createElement(
+            'li',
+            null,
+            props.isLoggedIn ? _react2.default.createElement(
+              'a',
+              { onClick: props.handleLogout },
+              'Logout'
+            ) : _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/login' },
+              'Login',
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'apps'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            props.isLoggedIn ? _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/account' },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'view_carousel'
+              ),
+              'Account'
+            ) : _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/signup' },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'assignment'
+              ),
+              'Signup'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            !props.isLoggedIn ? _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/trackorder' },
+              'Track Order'
+            ) : _react2.default.createElement('span', null)
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/cart' },
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-white pull-right' },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'shopping_cart'
+              ),
+              'Cart (',
+              props.cartSize,
+              ')'
+            )
+          )
+        )
+      )
+    )
+  );
+};
+var mapState = function mapState(state) {
+  return {
+    isLoggedIn: !!state.user.id,
+    cartSize: getCartSize(state.cart)
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    handleLogout: function handleLogout() {
+      return dispatch((0, _store.logout)());
+    },
+    submitSearch: function submitSearch(e) {
+      e.preventDefault();
+      dispatch((0, _store.fetchProducts)(e.target.search.value));
+    }
+  };
+};
+
+var getCartSize = function getCartSize(cart) {
+  var total = 0;
+  //console.log("get cart size", cart.items);
+  if (cart.items) Object.keys(cart.items).forEach(function (key) {
+    //console.log("qty for each",cart.items[key], cart.items[key].quantity)
+    total += +cart.items[key].quantity;
+  });
+  return total;
+};
+
+exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Topbar);
 
 /***/ }),
 /* 196 */

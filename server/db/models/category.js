@@ -10,15 +10,9 @@ const Category = db.define ('category', {
         notEmpty: true
     },
     photo: {
-        type: Sequelize.VIRTUAL,
-        get () {
-            const products = this.getProducts()
-            .then (products => {
-                return products.length?products[0].photo:'/snowflake.png';
-            })
-            .catch (console.log);
-            
-        }
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: '/snowflake.png'
     },
     inventoryQty: {
         type: Sequelize.VIRTUAL,

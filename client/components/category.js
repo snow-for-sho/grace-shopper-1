@@ -1,12 +1,13 @@
 import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Category (props) {
 
   const category = props.category || [];
 
   return (
-    <li>
+    <div>
       <div>
       {
         // Should have image to display for grid link
@@ -15,12 +16,19 @@ export default function Category (props) {
         // </a>
       }
       </div>
-      <div>
-        <NavLink to={`/categories/${category.id}`}>
-          <img src={category.photo} width='100' height='100'/>
-          <h2>{ category.title }</h2>
-        </NavLink>
+      <div 
+        className="card card-raised card-background" 
+        style={{ backgroundImage: `url(${category.photo})`, height: '400px', width: '400px' }}
+        >
+        <div className="card-content">
+          <Link to={`/categories/${category.id}`}>
+            <h3 className="card-title">{ category.title }</h3>
+          </Link>
+          <Link className="btn btn-primary btn-raised" to={`/categories/${category.id}`}>
+            View All
+          </Link>
+        </div>
       </div>
-    </li>
+    </div>
   );
 }
