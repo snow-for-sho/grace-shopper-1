@@ -31,7 +31,7 @@ class UserList extends Component {
   }
 
   listUsers() {
-    console.log('list user props: ', this.props)
+   // console.log('list user props: ', this.props.users, this.props.sort((u1, u2)=>u1.id - u2.id))
     if (!this.props.users.length) return <div>No Users found</div>
     return (
       <table className='table table-bordered'>
@@ -44,13 +44,13 @@ class UserList extends Component {
             <td align='center'>Phone</td>
             <td align='center'>Email</td>
             <td align='center'>Permission</td>
-            <td align='center'>Make Admin</td>
+            <td align='center'>Toggle Admin</td>
             <td align='center'>Delete User</td>
           </tr>
         </thead>
         <tbody>
         {
-          this.props.users.map(user =>
+          this.props.users.sort( (user1, user2)=>user1.id-user2.id).map(user =>
             <tr key={user.id}>
               <td align='center'><Link to={`/users/${user.id}`} key={user.id}>{user.id}</Link></td>
               <td align='center'>{user.firstName}</td>

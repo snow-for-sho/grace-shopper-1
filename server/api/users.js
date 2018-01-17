@@ -13,8 +13,9 @@ router.get('/', (req, res, next) => {
 router.put('/', (req, res, next) => {
   if (!req.body.id) res.sendStatus(404)
   User.findById(+req.body.id)
+
   .then(user => user.update({
-    isAdmin: 'TRUE'
+    isAdmin: user.isAdmin?'FALSE':'TRUE'
   }))
   .then(user => {
     res.json(user)
