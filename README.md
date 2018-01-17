@@ -13,12 +13,15 @@ npm install --save snowfosho
 2.  A port to run the application on can also be specified as a global env. variable. Default is 8080
 ```process.env.DATABASE_PORT=<YOUR APP PORT>```
 3.  To support Facebook and Google logins, a secrets file needs to be created in the root directory of the project with global environmental variables in the following format:
-```process.env.GOOGLE_CLIENT_ID = <YOUR GOOGLE CLIENT ID>
+```
+process.env.GOOGLE_CLIENT_ID = <YOUR GOOGLE CLIENT ID>
 process.env.GOOGLE_CLIENT_SECRET = <YOUR GOOGLE CLIENT SECRET>
 process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 process.env.FB_APP_ID=<YOUR FB APP ID>
 process.env.FB_APP_SECRET=<Your FB APP SECRET>
-process.env.FB_CALLBACK = '/auth/facebook/callback'```
+process.env.FB_CALLBACK = '/auth/facebook/callback' 
+```
+
 4.  npm start and you're ready to go.  
 
 # Demo can be found on heroku here
