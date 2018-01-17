@@ -12,7 +12,7 @@ export default function Review (props) {
           <h5>Headline: { review.headline }</h5>
         </NavLink>
         <p>{ review.reviewText }</p>
-        <h6>Stars: { review.numberOfStars }</h6>
+        <h6>{renderStarRating( review.numberOfStars) }</h6>
         <h6>Recommend? { review.recommendation }</h6>
       </div>
   );
